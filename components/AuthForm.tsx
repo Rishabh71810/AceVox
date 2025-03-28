@@ -4,12 +4,13 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
 import Link from "next/link"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {Form} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import FormField from "@/components/FormField"
-
+import { useRouter } from "next/navigation"
 const authFormSchema = (type: FormType) => {
   return z.object({
     name: type === "sign-up" ? z.string().min(1, { message: "Username is required" }) : z.string().optional(),
@@ -20,6 +21,7 @@ const authFormSchema = (type: FormType) => {
 }
 
 const AuthForm = ({ type }: { type: FormType }) => {
+  const router = useRouter();
   const formSchema = authFormSchema(type)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,9 +36,11 @@ const AuthForm = ({ type }: { type: FormType }) => {
   function onSubmit(values: z.infer<typeof formSchema>) {
    try {
     if (type === "sign-in") {
-      console.log("SIGN IN", values)
+      toast.success('Account created successfully. Plaese Sign In')
+      router.push('/sign-in')
     }else {
-      console.log("SIGN UP", values)
+      toast.success('Sign In sucessfully')
+      router.push('/')
     }
    } catch (error) {
       console.log(error)
@@ -68,11 +72,13 @@ const AuthForm = ({ type }: { type: FormType }) => {
             name="email"
             label="Email"
             placeholder="Enter your email"
+            type="email"
             />
              <FormField control = {form.control} 
             name="password"
             label="Password"
             placeholder="Enter your password"
+            type="password"
             />
             <Button className="btn" type="submit">
               {isSignIn ? 'Sign in' : 'Create an Account'}
