@@ -17,7 +17,7 @@ import {
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
-import { SignIn, SignUp } from "@/lib/actions/auth.action";
+import { signIn, signUp } from "@/lib/actions/auth.action";
 import FormField from "./FormField";
 
 const authFormSchema = (type: FormType) => {
@@ -52,7 +52,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           password
         );
 
-        const result = await SignUp({
+        const result = await signUp({
           uid: userCredential.user.uid,
           name: name!,
           email,
@@ -81,7 +81,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           return;
         }
 
-        await SignIn({
+        await signIn({
           email,
           idToken,
         });
