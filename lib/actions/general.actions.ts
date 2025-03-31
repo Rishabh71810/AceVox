@@ -2,17 +2,27 @@ import { db } from "@/firebase/admin";
 
 export async function getInterviewsByUserId(userId:string):Promise<Interview[] | null>{
     console.log('Fetching interviews for user:', userId);
-    const interviews = await db
-    .collection('interviews')
-    .where('userId','==',userId)
-    .orderBy('createdBy','desc')
-    .get();
-  
-    console.log('Found interviews:', interviews.docs.length);
-    return interviews.docs.map((doc)=>({
-      id:doc.id,
-      ...doc.data()
-    })) as Interview[];
+    try {
+      const interviews = await db
+        .collection('interviews')
+        .where('userid','==',userId)
+        .orderBy('createdAt','desc')
+        .get();
+      
+      console.log('Found interviews:', interviews.docs.length);
+      console.log('Interview documents:', interviews.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })));
+      
+      return interviews.docs.map((doc)=>({
+        id:doc.id,
+        ...doc.data()
+      })) as Interview[];
+    } catch (error) {
+      console.error('Error fetching interviews:', error);
+      return null;
+    }
   }
   
   export async function getLatestInterviews(params: GetLatestInterviewsParams):Promise<Interview[] | null>{
@@ -34,7 +44,7 @@ export async function getInterviewsByUserId(userId:string):Promise<Interview[] |
 
   export async function getInterviewById(id:string):Promise<Interview | null>{
     const interview = await db
-    .collection('interview')
+    .collection('interviews')
     .doc(id)
     .get();
   

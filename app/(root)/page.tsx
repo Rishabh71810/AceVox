@@ -41,7 +41,15 @@ const page = async () => {
        <div className='interviews-section'>
        {  hasPastInterviews ? (
           userInterviews?.map((interview)=>(
-             <InterviewCard {...interview} key = {interview.id}/>
+            <InterviewCard
+            key={interview.id}
+            id={interview.id}
+            userId={user.id}
+            role={interview.role}
+            type={interview.type}
+            techstack={interview.techstack}
+            createdAt={interview.createdAt}
+          />
           ))
         ):(
           <p>
@@ -59,7 +67,15 @@ const page = async () => {
        <div className="interviews-section">
         {  hasUpComingInterviews ? (
           allInterview?.map((interview)=>(
-             <InterviewCard {...interview} key = {interview.id}/>
+            <InterviewCard
+            key={interview.id}
+            id={interview.id}
+            userId={user.id}
+            role={interview.role}
+            type={interview.type}
+            techstack={interview.techstack}
+            createdAt={interview.createdAt}
+          />
           ))
         ):(
           <p>
