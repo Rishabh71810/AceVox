@@ -1,7 +1,7 @@
 import React from 'react'
 import Agent from '@/components/Agent'
 import { getCurrentUser } from '@/lib/actions/auth.action'
-const page = () => {
+async function Home(){
   const user  = await getCurrentUser();
   return (
     <>
@@ -12,4 +12,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Home

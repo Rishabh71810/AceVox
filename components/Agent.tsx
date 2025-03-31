@@ -13,14 +13,14 @@ enum CallStatus {
 }
 
 interface SavedMessages {
-  role : 'user'|'system'| 'asssistant';
-  content:string;
+  role: 'user' | 'system' | 'assistant';
+  content: string;
 }
 const Agent = ({userName,userId,type}:AgentProps) => {
     const router  =useRouter();
     const [isSpeaking,setIsSpeaking] = useState(false);
     const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
-    const [messages,setMessages] = useState<SavedMessages>([]);
+    const [messages,setMessages] = useState<SavedMessages[]>([]);
 
     useEffect(()=>{
      const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
@@ -28,9 +28,11 @@ const Agent = ({userName,userId,type}:AgentProps) => {
 
      const onMessage = (message:Message) =>{
       if(message.type==='transcript' && message.transcriptType==='final'){
-        const newMessage = {role: message.role, content:message.transcript}
-
-        setMessages((prev)=>[...prev,newMessage])
+        const newMessage: SavedMessages = {
+          role: message.role as 'user' | 'system' | 'assistant',
+          content: message.transcript
+        };
+        setMessages((prev)=>[...prev,newMessage]);
       }
      }
      const onSpeechStart = () => setIsSpeaking(true);
