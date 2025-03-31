@@ -108,7 +108,7 @@ const Agent = ({userName,userId,type}:AgentProps) => {
       <div className='call-border'>
         <div className='card-content'>
 <Image 
-src="/user-avatar.png" 
+src="" 
 alt="user-avatar" 
 width={540} 
 height={540} 
