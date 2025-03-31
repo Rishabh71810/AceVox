@@ -1,0 +1,42 @@
+import { db } from "@/firebase/admin";
+
+export async function getInterviewsByUserId(userId:string):Promise<Interview[] | null>{
+    console.log('Fetching interviews for user:', userId);
+    const interviews = await db
+    .collection('interviews')
+    .where('userId','==',userId)
+    .orderBy('createdBy','desc')
+    .get();
+  
+    console.log('Found interviews:', interviews.docs.length);
+    return interviews.docs.map((doc)=>({
+      id:doc.id,
+      ...doc.data()
+    })) as Interview[];
+  }
+  
+  export async function getLatestInterviews(params: GetLatestInterviewsParams):Promise<Interview[] | null>{
+    const {userId, limit = 20} = params;
+    const interviews = await db
+    .collection('interviews')
+    .orderBy('createdAt','desc')
+    .where('userId','!=',userId)
+    .where('finalized','==',true)
+    .orderBy('createdBy','desc')
+    .limit(limit)
+    .get();
+  
+    return interviews.docs.map((doc)=>({
+      id:doc.id,
+      ...doc.data()
+    })) as Interview[];
+  }
+
+  export async function getInterviewById(id:string):Promise<Interview | null>{
+    const interview = await db
+    .collection('interview')
+    .doc(id)
+    .get();
+  
+    return interview.data() as Interview  | null
+  }
