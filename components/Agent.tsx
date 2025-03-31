@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import {vapi} from '@/lib/vapi.sdk'
+
 enum CallStatus {
   INACTIVE="INACTIVE",
   ACTIVE="ACTIVE",
@@ -16,8 +17,9 @@ interface SavedMessages {
   role: 'user' | 'system' | 'assistant';
   content: string;
 }
+
 const Agent = ({userName,userId,type}:AgentProps) => {
-    const router  =useRouter();
+    const router = useRouter();
     const [isSpeaking,setIsSpeaking] = useState(false);
     const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
     const [messages,setMessages] = useState<SavedMessages[]>([]);
