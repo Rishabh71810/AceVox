@@ -37,10 +37,16 @@ const Agent = ({userName,userId,type}:AgentProps) => {
         setMessages((prev)=>[...prev,newMessage]);
       }
      }
-     const onSpeechStart = () => setIsSpeaking(true);
-     const onSpeechEnd = () => setIsSpeaking(false);
+     const onSpeechStart = () => {
+      setIsSpeaking(true);
+    } 
+     const onSpeechEnd = () => {
+      setIsSpeaking(false);
+    }
 
-     const onError = (error:Error) => console.log('Error',error);
+     const onError = (error:Error) => {
+      console.log('Error',error);
+    }
 
      vapi.on('call-start',onCallStart);
      vapi.on('call-end',onCallEnd);
@@ -88,14 +94,24 @@ const Agent = ({userName,userId,type}:AgentProps) => {
     <div className='call-view'>
       <div className='card-interviewer'>
         <div className='avatar'>
-            <Image src = "/ai-avatar.png" alt="vapi" width={65} height={54} className='object-cover'/>
+            <Image 
+            src = "/ai-avatar.png" 
+            alt="vapi" 
+            width={65} 
+            height={54} 
+            className='object-cover'/>
             {isSpeaking && <span className='animate-speak'></span>}
         </div>
         <h3>AI Interviewer</h3>
       </div>
       <div className='call-border'>
         <div className='card-content'>
-<Image src="/user-avatar.png" alt="user-avatar" width={540} height={540} className=' rounded-full object-cover size-[120px]'/>
+<Image 
+src="/user-avatar.png" 
+alt="user-avatar" 
+width={540} 
+height={540} 
+className=' rounded-full object-cover size-[120px]'/>
       <h3>{userName}</h3>
         </div>
       </div>
@@ -116,15 +132,15 @@ const Agent = ({userName,userId,type}:AgentProps) => {
 
     <div className='w-full flex justify-center'>
       {callStatus !== 'ACTIVE' ? (
-        <button className='btn-call relative' onClick={handleCall}>
+        <button className='btn-call relative' onClick={()=>handleCall()}>
           <span className={cn('absolute animate-ping rounded-full opacity-75',callStatus==='CONNECTING'&& 'HIDDEN')}/>
            
-          <span>
+          <span className='relative'>
           {inCallInActiveOrFinished ? "Call" : '. . .'}
           </span>
         </button>
       ) : (
-        <button className='btn-disconnect' onClick={handleDisconnect}>
+        <button className='btn-disconnect' onClick={()=>handleDisconnect()}>
            <span>End</span>
         </button>
       )}
