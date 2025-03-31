@@ -77,6 +77,7 @@ const Agent = ({userName,userId,type}:AgentProps) => {
         variableValues:{
              username:userName,
              userid:userId,
+             webToken: process.env.NEXT_PUBLIC_VAPI_WEB_TOKEN
         }
       })
     }
