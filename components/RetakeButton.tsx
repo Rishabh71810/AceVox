@@ -21,7 +21,7 @@ const RetakeButton = ({ interviewId, userId }: RetakeButtonProps) => {
       } else {
         toast.error("Failed to create retake interview");
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong");
     }
   };
@@ -35,4 +35,4 @@ const RetakeButton = ({ interviewId, userId }: RetakeButtonProps) => {
   );
 };
 
-export default RetakeButton; 
+export default RetakeButton;

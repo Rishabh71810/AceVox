@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Button } from './ui/button'
 import DisplayTechIcons from './DisplayTechIcons'
 import { InterviewCardProps, Feedback } from '@/types'
-const InterviewCard = ({id, userId,role,type,techstack,createdAt}:InterviewCardProps) => {
+const InterviewCard = ({id, role, type, techstack, createdAt}:InterviewCardProps) => {
     const feedback = null as Feedback | null;
     const normalizedType = /mix/gi.test(type) ? "Mixed" : type; // Normalizes interview type: if type contains 'mix' (case-insensitive), returns "Mixed", otherwise returns original type
     const formatteddate = dayjs(feedback?.createdAt || createdAt || Date.now()).format('MMM D YYYY')// Formats the date using dayjs library

@@ -2,12 +2,10 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { toast } from "sonner";
 
 import {
   getFeedbackByInterviewId,
   getInterviewById,
-  createRetakeInterview,
 } from "@/lib/actions/general.actions";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/actions/auth.action";

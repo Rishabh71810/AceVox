@@ -18,7 +18,7 @@ const page = async ({params}:RouteParams) => {
     }
     const feedback = await getFeedbackByInterviewId({
       interviewId: id,
-      userId: user?.id!,
+      userId: user.id, // user is guaranteed to exist due to the check above
     });
   return (
    <>
