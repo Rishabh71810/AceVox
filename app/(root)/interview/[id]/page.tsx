@@ -6,6 +6,9 @@ import Image from 'next/image';
 import DisplayTechIcons from '@/components/DisplayTechIcons';
 import { getCurrentUser } from '@/lib/actions/auth.action';
 import Agent from '@/components/Agent';
+import { getFeedbackByInterviewId } from '@/lib/actions/general.actions';
+import { RouteParams } from '@/types';
+
 const page = async ({params}:RouteParams) => {
     const { id } = await params;
     const interview =  await getInterviewById(id);
@@ -13,6 +16,10 @@ const page = async ({params}:RouteParams) => {
     if(!interview || !user) {
         redirect('/');
     }
+    const feedback = await getFeedbackByInterviewId({
+      interviewId: id,
+      userId: user?.id!,
+    });
   return (
    <>
    <div className='flex flex-row gap-4 justify-between'>
@@ -34,8 +41,9 @@ const page = async ({params}:RouteParams) => {
     userId={user.id}
     interviewId={id}
     type="interview"
-    questions={interview.questions}/>
-
+    questions={interview.questions}
+    feedbackId={feedback?.id}
+   />
    </>
   )
 }

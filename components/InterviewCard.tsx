@@ -5,6 +5,7 @@ import { getRandomInterviewCover } from '@/lib/utils'
 import Link from 'next/link'
 import { Button } from './ui/button'
 import DisplayTechIcons from './DisplayTechIcons'
+import { InterviewCardProps, Feedback } from '@/types'
 const InterviewCard = ({id, userId,role,type,techstack,createdAt}:InterviewCardProps) => {
     const feedback = null as Feedback | null;
     const normalizedType = /mix/gi.test(type) ? "Mixed" : type; // Normalizes interview type: if type contains 'mix' (case-insensitive), returns "Mixed", otherwise returns original type

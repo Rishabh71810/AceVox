@@ -5,6 +5,7 @@ import Image from 'next/image'
 import InterviewCard from '@/components/InterviewCard'
 import { getCurrentUser} from '@/lib/actions/auth.action'
 import { getInterviewsByUserId, getLatestInterviews } from '@/lib/actions/general.actions'
+import { Interview } from '@/types'
 const page = async () => {
   const user = await getCurrentUser();
   if (!user) return null;
@@ -62,7 +63,7 @@ const page = async () => {
       </section>
       <section className='flex flex-col gap-6 mt-8'>
        <h2>
-        Taken a Interview
+        Taken Interviews
        </h2>
        <div className="interviews-section">
         {  hasUpComingInterviews ? (
