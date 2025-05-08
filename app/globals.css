@@ -10,17 +10,17 @@
   --color-destructive-100: #f75353;
   --color-destructive-200: #c44141;
 
-  --color-primary-100: #dddfff;
-  --color-primary-200: #cac5fe;
+  --color-primary-100: #4facff;
+  --color-primary-200: #1e88e5;
 
-  --color-light-100: #d6e0ff;
-  --color-light-400: #6870a6;
-  --color-light-600: #4f557d;
-  --color-light-800: #24273a;
+  --color-light-100: #c6d8ff;
+  --color-light-400: #5272a4;
+  --color-light-600: #3e507a;
+  --color-light-800: #1a2036;
 
-  --color-dark-100: #020408;
-  --color-dark-200: #27282f;
-  --color-dark-300: #242633;
+  --color-dark-100: #000c1a;
+  --color-dark-200: #041e42;
+  --color-dark-300: #0a2d5c;
 
   --font-mona-sans: "Mona Sans", sans-serif;
 
@@ -81,14 +81,14 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --chart-1: oklch(0.488 0.243 235.376);
+  --chart-2: oklch(0.696 0.17 215.48);
+  --chart-3: oklch(0.769 0.188 240.08);
+  --chart-4: oklch(0.627 0.265 230.9);
+  --chart-5: oklch(0.645 0.246 206.439);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: oklch(0.488 0.243 235.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
@@ -175,7 +175,7 @@
     @apply flex min-h-14 w-full items-center justify-center gap-1.5 rounded-md;
   }
   .btn-primary {
-    @apply w-fit !bg-primary-200 !text-dark-100 hover:!bg-primary-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
+    @apply w-fit bg-gradient-to-r from-[#4facff] to-[#1e88e5] hover:from-[#1e88e5] hover:to-[#1565c0] text-white !rounded-full !font-bold px-5 cursor-pointer min-h-10;
   }
   .btn-secondary {
     @apply w-fit !bg-dark-200 !text-primary-200 hover:!bg-dark-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
@@ -186,11 +186,11 @@
   }
 
   .card-border {
-    @apply border-gradient p-0.5 rounded-2xl w-fit;
+    @apply bg-gradient-to-b from-[#0a2d5c40] to-[#000c1a40] p-0.5 rounded-2xl w-fit;
   }
 
   .card {
-    @apply dark-gradient rounded-2xl min-h-full;
+    @apply bg-gradient-to-b from-[#021326] to-[#000810] rounded-2xl min-h-full shadow-md shadow-black/50;
   }
 
   .form {
@@ -205,7 +205,7 @@
     }
 
     .btn {
-      @apply !w-full !bg-primary-200 !text-dark-100 hover:!bg-primary-200/80 !rounded-full !min-h-10 !font-bold !px-5 cursor-pointer;
+      @apply !w-full bg-gradient-to-r from-[#4facff] to-[#1e88e5] hover:from-[#1e88e5] hover:to-[#1565c0] !text-white !rounded-full !min-h-10 !font-bold !px-5 cursor-pointer;
     }
   }
 
@@ -217,11 +217,11 @@
     }
 
     .card-interviewer {
-      @apply flex-center flex-col gap-2 p-7 h-[400px] blue-gradient-dark rounded-lg border-2 border-primary-200/50 flex-1 sm:basis-1/2 w-full;
+      @apply flex-center flex-col gap-2 p-7 h-[400px] bg-gradient-to-b from-[#041e42] to-[#000c1a] rounded-lg border-2 border-primary-200/50 flex-1 sm:basis-1/2 w-full;
     }
 
     .avatar {
-      @apply z-10 flex items-center justify-center blue-gradient rounded-full size-[120px] relative;
+      @apply z-10 flex items-center justify-center bg-gradient-to-r from-[#4facff] to-[#1e88e5] rounded-full size-[120px] relative;
 
       .animate-speak {
         @apply absolute inline-flex size-5/6 animate-ping rounded-full bg-primary-200 opacity-75;
@@ -229,19 +229,19 @@
     }
 
     .card-border {
-      @apply border-gradient p-0.5 rounded-2xl flex-1 sm:basis-1/2 w-full h-[400px] max-md:hidden;
+      @apply bg-gradient-to-b from-[#1e88e533] to-[#041e4211] p-0.5 rounded-2xl flex-1 sm:basis-1/2 w-full h-[400px] max-md:hidden;
     }
 
     .card-content {
-      @apply flex flex-col gap-2 justify-center items-center p-7 dark-gradient rounded-2xl min-h-full;
+      @apply flex flex-col gap-2 justify-center items-center p-7 bg-gradient-to-b from-[#041e42] to-[#000c1a] rounded-2xl min-h-full;
     }
   }
 
   .transcript-border {
-    @apply border-gradient p-0.5 rounded-2xl w-full;
+    @apply bg-gradient-to-b from-[#1e88e533] to-[#041e4211] p-0.5 rounded-2xl w-full;
 
     .transcript {
-      @apply dark-gradient rounded-2xl  min-h-12 px-5 py-3 flex items-center justify-center;
+      @apply bg-gradient-to-b from-[#041e42] to-[#000c1a] rounded-2xl min-h-12 px-5 py-3 flex items-center justify-center;
 
       p {
         @apply text-lg text-center text-white;
@@ -266,7 +266,7 @@
   }
 
   .card-cta {
-    @apply flex flex-row blue-gradient-dark rounded-3xl px-16 py-6 items-center justify-between max-sm:px-4;
+    @apply flex flex-row bg-gradient-to-b from-[#041e42] to-[#000c1a] rounded-3xl px-16 py-6 items-center justify-between max-sm:px-4;
   }
 
   .interviews-section {
@@ -278,7 +278,7 @@
   }
 
   .progress {
-    @apply h-1.5 text-[5px] font-bold bg-primary-200 rounded-full flex-center;
+    @apply h-1.5 text-[5px] font-bold bg-gradient-to-r from-[#4facff] to-[#1e88e5] rounded-full flex-center;
   }
 
   .tech-tooltip {
@@ -286,7 +286,7 @@
   }
 
   .card-interview {
-    @apply dark-gradient rounded-2xl min-h-full flex flex-col p-6 relative overflow-hidden gap-10 justify-between;
+    @apply bg-gradient-to-b from-[#03152e] to-[#000a14] rounded-2xl min-h-full flex flex-col p-6 relative overflow-hidden gap-10 justify-between shadow-md shadow-black/30 backdrop-blur-sm;
 
     .badge-text {
       @apply text-sm font-semibold capitalize;
@@ -295,11 +295,11 @@
 }
 
 @utility dark-gradient {
-  @apply bg-gradient-to-b from-[#1A1C20] to-[#08090D];
+  @apply bg-gradient-to-b from-[#021326] to-[#000810];
 }
 
 @utility border-gradient {
-  @apply bg-gradient-to-b from-[#4B4D4F] to-[#4B4D4F33];
+  @apply bg-gradient-to-b from-[#0a2d5c40] to-[#000c1a40];
 }
 
 @utility pattern {
@@ -307,11 +307,11 @@
 }
 
 @utility blue-gradient-dark {
-  @apply bg-gradient-to-b from-[#171532] to-[#08090D];
+  @apply bg-gradient-to-b from-[#041e42] to-[#000c1a];
 }
 
 @utility blue-gradient {
-  @apply bg-gradient-to-l from-[#FFFFFF] to-[#CAC5FE];
+  @apply bg-gradient-to-r from-[#4facff] to-[#1e88e5];
 }
 
 @utility flex-center {

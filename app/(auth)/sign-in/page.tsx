@@ -1,7 +1,8 @@
 import React from 'react'
-import AuthForm from '@/components/AuthForm'
+import ModernAuthForm from '@/components/ModernAuthForm'
+
 const signIn = () => {
-  return <AuthForm type="sign-in"/>
+  return <ModernAuthForm type="sign-in"/>
 }
 
 export default signIn

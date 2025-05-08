@@ -1,0 +1,20 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="40" height="40" rx="8" fill="url(#paint0_linear_123_456)" />
+  
+  <!-- Stylized "A" for Acevox -->
+  <path d="M20 6C17.8 6 16 8.4 14.5 11.6L8 26H12.5L14 22H26L27.5 26H32L25.5 11.6C24 8.4 22.2 6 20 6ZM20 10C20.2 10 20.4 10.1 20.6 10.5L24.2 18H15.8L19.4 10.5C19.6 10.1 19.8 10 20 10Z" fill="white"/>
+  
+  <!-- Sound wave effect -->
+  <path d="M12 30C11.4477 30 11 30.4477 11 31C11 31.5523 11.4477 32 12 32C12.5523 32 13 31.5523 13 31C13 30.4477 12.5523 30 12 30Z" fill="#CAC5FE"/>
+  <path d="M16 28C15.4477 28 15 28.4477 15 29V33C15 33.5523 15.4477 34 16 34C16.5523 34 17 33.5523 17 33V29C17 28.4477 16.5523 28 16 28Z" fill="#CAC5FE"/>
+  <path d="M20 26C19.4477 26 19 26.4477 19 27V35C19 35.5523 19.4477 36 20 36C20.5523 36 21 35.5523 21 35V27C21 26.4477 20.5523 26 20 26Z" fill="#CAC5FE"/>
+  <path d="M24 28C23.4477 28 23 28.4477 23 29V33C23 33.5523 23.4477 34 24 34C24.5523 34 25 33.5523 25 33V29C25 28.4477 24.5523 28 24 28Z" fill="#CAC5FE"/>
+  <path d="M28 30C27.4477 30 27 30.4477 27 31C27 31.5523 27.4477 32 28 32C28.5523 32 29 31.5523 29 31C29 30.4477 28.5523 30 28 30Z" fill="#CAC5FE"/>
+  
+  <defs>
+    <linearGradient id="paint0_linear_123_456" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#171532"/>
+      <stop offset="1" stop-color="#08090D"/>
+    </linearGradient>
+  </defs>
+</svg> 

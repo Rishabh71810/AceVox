@@ -5,13 +5,13 @@ import { Toaster } from "sonner";
 
 const monaSans = Mona_Sans({
   variable: "--font-monad-sans",
-  subsets: ["latin"],
+  subsets: ["latin"], 
 });
 
 
 export const metadata: Metadata = {
   title: "AceVox",
-  description: "AI powered interview assiytant",
+  description: "AI powered interview assistant",
 };
 
 export default function RootLayout({

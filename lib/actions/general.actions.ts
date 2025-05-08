@@ -13,12 +13,12 @@ import {
 } from "@/types";
 
 
-export async function getInterviewsByUserId(userId:string):Promise<Interview[] | null>{
+export async function getInterviewsByUserId(userId: string, _timestamp?: number): Promise<Interview[] | null>{
     console.log('Fetching interviews for user:', userId);
     try {
       const interviews = await db
         .collection('interviews')
-        .where('userid','==',userId)
+        .where('userId','==',userId)
         .orderBy('createdAt','desc')
         .get();
       
@@ -38,21 +38,28 @@ export async function getInterviewsByUserId(userId:string):Promise<Interview[] |
     }
   }
   
-  export async function getLatestInterviews(params: GetLatestInterviewsParams):Promise<Interview[] | null>{
+  export async function getLatestInterviews(params: GetLatestInterviewsParams & { timestamp?: number }): Promise<Interview[] | null>{
     const {userId, limit = 20} = params;
-    const interviews = await db
-    .collection('interviews')
-    .orderBy('createdAt','desc')
-    .where('userId','!=',userId)
-    .where('finalized','==',true)
-    .orderBy('createdBy','desc')
-    .limit(limit)
-    .get();
-  
-    return interviews.docs.map((doc)=>({
-      id:doc.id,
-      ...doc.data()
-    })) as Interview[];
+    try {
+      // In Firestore, you can't use multiple orderBy with a range filter in between
+      // So we need to restructure this query
+      const interviews = await db
+        .collection('interviews')
+        .where('finalized','==',true)
+        .where('userId','!=',userId)
+        .orderBy('userId') // This is required when using != on userId
+        .orderBy('createdAt','desc')
+        .limit(limit)
+        .get();
+    
+      return interviews.docs.map((doc)=>({
+        id:doc.id,
+        ...doc.data()
+      })) as Interview[];
+    } catch (error) {
+      console.error('Error fetching latest interviews:', error);
+      return null;
+    }
   }
 
   export async function getInterviewById(id:string):Promise<Interview | null>{
@@ -116,7 +123,15 @@ export async function getInterviewsByUserId(userId:string):Promise<Interview[] |
       }
   
       await feedbackRef.set(feedback);
+      
+      // Update the interview record with the feedback ID and mark it as completed
+      await db.collection("interviews").doc(interviewId).update({
+        feedbackId: feedbackRef.id,
+        completed: true
+      });
   
+      console.log(`Updated interview ${interviewId} with feedbackId ${feedbackRef.id}`);
+      
       return { success: true, feedbackId: feedbackRef.id };
     } catch (error) {
       console.error("Error saving feedback:", error);
@@ -158,7 +173,7 @@ export async function getInterviewsByUserId(userId:string):Promise<Interview[] |
         ...originalInterview,
         id: undefined, // Let Firestore generate new ID
         createdAt: new Date().toISOString(),
-        userid: userId,
+        userId: userId,
         finalized: false,
         feedbackId: undefined
       };

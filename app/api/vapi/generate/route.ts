@@ -11,10 +11,10 @@ export async function POST(request:Request){
     const body = await request.json();
     console.log('Received request body:', body);
     
-    const {type, role, level, techstack, amount, userid} = body;
+    const {type, role, level, techstack, amount, userId} = body;
 
     // Validate required fields
-    if (!userid) {
+    if (!userId) {
         console.log('Missing userId');
         return Response.json(
             { success: false, message: 'User ID is required' },
@@ -53,7 +53,7 @@ export async function POST(request:Request){
         level,
         techstack: techstack.split(","),
         questions: JSON.parse(questions),
-        userid,
+        userId,
         finalized: true,
         coverImage: getRandomInterviewCover(),
         createdAt: new Date().toISOString(),

@@ -23,6 +23,8 @@ export interface Feedback {
     userId: string;
     type: string;
     finalized: boolean;
+    feedbackId?: string;
+    completed?: boolean;
   }
   
   export interface CreateFeedbackParams {
@@ -45,6 +47,8 @@ export interface Feedback {
     type: string;
     techstack: string[];
     createdAt?: string;
+    feedbackId?: string;
+    completed?: boolean;
   }
   
   export interface AgentProps {
@@ -70,6 +74,7 @@ export interface Feedback {
   export interface GetLatestInterviewsParams {
     userId: string;
     limit?: number;
+    timestamp?: number;
   }
   
   export interface SignInParams {
@@ -98,4 +103,3 @@ export interface Feedback {
   export interface TechIconProps {
     techStack: string[];
   }
-  
