@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Mona_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 
-const monaSans = Mona_Sans({
-  variable: "--font-monad-sans",
-  subsets: ["latin"], 
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 
@@ -22,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${monaSans.className} antialiased relative bg-gradient-to-b from-[#000205] via-[#001326] to-[#000a14] glow`}
+        className={`${inter.className} antialiased relative bg-gradient-to-b from-[#000205] via-[#001326] to-[#000a14] glow`}
       >
         <div className="absolute inset-0 pattern pointer-events-none"></div>
         {children}
