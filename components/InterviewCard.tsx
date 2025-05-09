@@ -16,6 +16,8 @@ const InterviewCard = ({id, role, type, techstack, createdAt, userId, feedbackId
     useEffect(() => {
         const fetchFeedback = async () => {
             try {
+                setIsLoading(true);
+                
                 if (feedbackId) {
                     // If we already have a feedbackId, fetch the feedback directly
                     const response = await fetch(`/api/feedback/${feedbackId}`);
@@ -23,15 +25,21 @@ const InterviewCard = ({id, role, type, techstack, createdAt, userId, feedbackId
                         const data = await response.json();
                         if (data.feedback) {
                             setFeedback(data.feedback);
+                        } else {
+                            console.warn(`No feedback found for feedbackId: ${feedbackId}`);
                         }
+                    } else {
+                        console.error(`Error fetching feedback by ID: ${feedbackId}`, response.statusText);
                     }
-                } else {
-                    // Otherwise, try to find feedback by interview ID and user ID
+                } else if (completed) {
+                    // Try to find feedback by interview ID and user ID if marked as completed
                     const response = await fetch(`/api/feedback?interviewId=${id}&userId=${userId}`);
                     if (response.ok) {
                         const data = await response.json();
                         if (data.feedback) {
                             setFeedback(data.feedback);
+                        } else {
+                            console.warn(`No feedback found for interview: ${id} even though marked as completed`);
                         }
                     }
                 }
@@ -42,19 +50,19 @@ const InterviewCard = ({id, role, type, techstack, createdAt, userId, feedbackId
             }
         };
         
-        if (id && userId) {
+        if (id && userId && (feedbackId || completed)) {
             fetchFeedback();
         } else {
             setIsLoading(false);
         }
-    }, [id, userId, feedbackId]);
+    }, [id, userId, feedbackId, completed]);
     
     const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
     const formatteddate = dayjs(feedback?.createdAt || createdAt || Date.now()).format('MMM D, YYYY');
     
     return (
         <div className="card-border h-full">
-            <div className="card-interview p-6 h-full flex flex-col border-l-2 border-[#1e88e5]/20">
+            <div className="card-interview p-6 h-full flex flex-col border-l-2 border-[#1e88e5]/20 shadow-lg shadow-[#000]/50">
                 {/* Card Header */}
                 <div className="flex flex-col gap-5">
                     <div className="flex justify-between items-start">
@@ -69,7 +77,7 @@ const InterviewCard = ({id, role, type, techstack, createdAt, userId, feedbackId
                                         className="rounded-full object-cover" 
                                     />
                                 </div>
-                                {(feedback || completed) && (
+                                {(feedback || (completed && feedbackId)) && (
                                     <div className="absolute -bottom-1 -right-1 bg-success-100 rounded-full p-1">
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20 6L9 17L4 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -84,14 +92,14 @@ const InterviewCard = ({id, role, type, techstack, createdAt, userId, feedbackId
                                 </div>
                             </div>
                         </div>
-                        <span className="px-3 py-1 bg-[#021326] text-[#4facff] text-sm font-medium rounded-full border border-[#1e88e5]/20">
+                        <span className="px-3 py-1 bg-[#000a14] text-[#4facff] text-sm font-medium rounded-full border border-[#1e88e5]/20">
                             {normalizedType}
                         </span>
                     </div>
                     
                     {/* Score Display */}
                     {!isLoading && feedback && (
-                        <div className="bg-[#021326]/70 rounded-xl p-3 mt-2 border-l border-[#1e88e5]/20">
+                        <div className="bg-[#000a14]/70 rounded-xl p-3 mt-2 border-l border-[#1e88e5]/20">
                             <div className="flex justify-between items-center">
                                 <span className="text-sm text-light-400">Overall Score</span>
                                 <div className="flex items-center gap-1.5">
@@ -103,7 +111,7 @@ const InterviewCard = ({id, role, type, techstack, createdAt, userId, feedbackId
                             </div>
                             
                             {/* Progress bar */}
-                            <div className="w-full bg-[#010c1a] h-2 rounded-full mt-2 overflow-hidden">
+                            <div className="w-full bg-[#000205] h-2 rounded-full mt-2 overflow-hidden">
                                 <div 
                                     className="bg-gradient-to-r from-[#4facff] to-[#1e88e5] h-full rounded-full" 
                                     style={{ width: `${feedback.totalScore}%` }}
@@ -123,8 +131,8 @@ const InterviewCard = ({id, role, type, techstack, createdAt, userId, feedbackId
                     <ClientDisplayTechIcons techStack={techstack} />
                     
                     <Button asChild variant="outline" className="rounded-full border-[#1e88e5]/30 text-[#4facff] hover:bg-[#1e88e5]/10 hover:text-[#4facff]">
-                        <Link href={(feedback || completed) ? `/interview/${id}/feedback` : `/interview/${id}`}>
-                            {(feedback || completed) ? 'View Feedback' : 'Start Interview'}
+                        <Link href={(feedback || (completed && feedbackId)) ? `/interview/${id}/feedback` : `/interview/${id}`}>
+                            {(feedback || (completed && feedbackId)) ? 'View Feedback' : 'Start Interview'}
                         </Link>
                     </Button>
                 </div>

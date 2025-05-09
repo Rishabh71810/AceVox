@@ -13,7 +13,7 @@ import {
 } from "@/types";
 
 
-export async function getInterviewsByUserId(userId: string, _timestamp?: number): Promise<Interview[] | null>{
+export async function getInterviewsByUserId(userId: string, timestamp?: number): Promise<Interview[] | null>{
     console.log('Fetching interviews for user:', userId);
     try {
       const interviews = await db

@@ -22,8 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${monaSans.className} antialiased pattern`}
+        className={`${monaSans.className} antialiased relative bg-gradient-to-b from-[#000205] via-[#001326] to-[#000a14] glow`}
       >
+        <div className="absolute inset-0 pattern pointer-events-none"></div>
         {children}
         <Toaster/>
       </body>

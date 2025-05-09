@@ -25,6 +25,32 @@ const Feedback = async ({ params }: RouteParams) => {
     userId: user.id,
   });
 
+  // Check if feedback exists - redirect to interview page if not
+  if (!feedback) {
+    console.log("No feedback found for interview:", id);
+    return (
+      <div className="section-feedback">
+        <div className="flex flex-col items-center justify-center gap-6 py-12">
+          <h1 className="text-3xl font-semibold text-center">
+            No feedback available for this interview
+          </h1>
+          <p className="text-light-100/80 text-center max-w-2xl">
+            The feedback for this interview is not available. This usually happens when an interview wasn't fully completed or is still being processed. Please return to the dashboard and check your interviews there.
+          </p>
+          <div className="flex flex-row gap-4">
+            <Button className="btn-secondary">
+              <Link href="/" className="flex w-full justify-center">
+                <p className="text-sm font-semibold text-primary-200 text-center">
+                  Back to dashboard
+                </p>
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="section-feedback">
       <div className="flex flex-row justify-center">
@@ -42,7 +68,7 @@ const Feedback = async ({ params }: RouteParams) => {
             <p>
               Overall Impression:{" "}
               <span className="text-primary-200 font-bold">
-                {feedback?.totalScore}
+                {feedback.totalScore}
               </span>
               /100
             </p>
@@ -52,7 +78,7 @@ const Feedback = async ({ params }: RouteParams) => {
           <div className="flex flex-row gap-2">
             <Image src="/calendar.svg" width={22} height={22} alt="calendar" />
             <p>
-              {feedback?.createdAt
+              {feedback.createdAt
                 ? dayjs(feedback.createdAt).format("MMM D, YYYY h:mm A")
                 : "N/A"}
             </p>
@@ -62,12 +88,12 @@ const Feedback = async ({ params }: RouteParams) => {
 
       <hr />
 
-      <p>{feedback?.finalAssessment}</p>
+      <p>{feedback.finalAssessment}</p>
 
       {/* Interview Breakdown */}
       <div className="flex flex-col gap-4">
         <h2>Breakdown of the Interview:</h2>
-        {feedback?.categoryScores?.map((category: { name: string; score: number; comment: string }, index: number) => (
+        {feedback.categoryScores?.map((category: { name: string; score: number; comment: string }, index: number) => (
           <div key={index}>
             <p className="font-bold">
               {index + 1}. {category.name} ({category.score}/100)
@@ -80,7 +106,7 @@ const Feedback = async ({ params }: RouteParams) => {
       <div className="flex flex-col gap-3">
         <h3>Strengths</h3>
         <ul>
-          {feedback?.strengths?.map((strength: string, index: number) => (
+          {feedback.strengths?.map((strength: string, index: number) => (
             <li key={index}>{strength}</li>
           ))}
         </ul>
@@ -89,7 +115,7 @@ const Feedback = async ({ params }: RouteParams) => {
       <div className="flex flex-col gap-3">
         <h3>Areas for Improvement</h3>
         <ul>
-          {feedback?.areasForImprovement?.map((area: string, index: number) => (
+          {feedback.areasForImprovement?.map((area: string, index: number) => (
             <li key={index}>{area}</li>
           ))}
         </ul>

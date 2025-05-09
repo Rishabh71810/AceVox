@@ -1,46 +1,119 @@
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Main background with darker gradient -->
-  <rect width="40" height="40" rx="10" fill="url(#paint0_linear)" />
+<svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Subtle grid background for tech feel -->
+  <pattern id="grid_pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+    <path d="M0 0H10V10H0V0Z" fill="none" />
+    <circle cx="5" cy="5" r="0.5" fill="#1E88E5" fill-opacity="0.15" />
+  </pattern>
+
+  <!-- Background with blue gradient and subtle pattern -->
+  <rect width="100" height="100" rx="20" fill="url(#background_gradient)" />
+  <rect width="100" height="100" rx="20" fill="url(#pattern_gradient)" fill-opacity="0.05" />
   
-  <!-- Inner rounded rectangle for depth -->
-  <rect x="4" y="4" width="32" height="32" rx="8" fill="url(#paint1_linear)" fill-opacity="0.4" />
+  <!-- Inner shape for depth with frosted glass effect -->
+  <rect x="10" y="10" width="80" height="80" rx="15" fill="url(#inner_gradient)" fill-opacity="0.3" />
+  <rect x="10" y="10" width="80" height="80" rx="15" fill="url(#pattern_gradient)" fill-opacity="0.02" />
   
-  <!-- Stylized modern "A" -->
-  <path d="M16 12L20 25L24 12M17.5 20H22.5" stroke="url(#paint2_linear)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Orbit rings representing global connections -->
+  <ellipse cx="50" cy="50" rx="40" ry="15" stroke="url(#orbit_gradient)" stroke-width="0.5" stroke-opacity="0.3" transform="rotate(30 50 50)" />
+  <ellipse cx="50" cy="50" rx="42" ry="20" stroke="url(#orbit_gradient)" stroke-width="0.5" stroke-opacity="0.3" transform="rotate(-20 50 50)" />
   
-  <!-- Audio visualization waves -->
-  <path d="M12 28C12 26 12 24 12 22" stroke="#56CCF2" stroke-width="1.5" stroke-linecap="round" />
-  <path d="M16 29C16 26 16 23 16 20" stroke="#56CCF2" stroke-width="1.5" stroke-linecap="round" />
-  <path d="M20 30C20 26 20 22 20 18" stroke="#56CCF2" stroke-width="1.5" stroke-linecap="round" />
-  <path d="M24 29C24 26 24 23 24 20" stroke="#56CCF2" stroke-width="1.5" stroke-linecap="round" />
-  <path d="M28 28C28 26 28 24 28 22" stroke="#56CCF2" stroke-width="1.5" stroke-linecap="round" />
+  <!-- Microphone representing interviews -->
+  <path d="M50 20C44.5 20 40 24.5 40 30V50C40 55.5 44.5 60 50 60C55.5 60 60 55.5 60 50V30C60 24.5 55.5 20 50 20Z" fill="url(#mic_gradient)" />
   
-  <!-- Glow effect -->
-  <circle cx="20" cy="20" r="12" fill="url(#paint3_radial)" fill-opacity="0.15" />
+  <!-- Microphone details for added realism -->
+  <path d="M50 22C45.5 22 42 25.5 42 30V50C42 54.5 45.5 58 50 58C54.5 58 58 54.5 58 50V30C58 25.5 54.5 22 50 22Z" fill="#000A1A" fill-opacity="0.15" />
+  <path d="M47 30C47 28.9 47.9 28 49 28H51C52.1 28 53 28.9 53 30V32C53 33.1 52.1 34 51 34H49C47.9 34 47 33.1 47 32V30Z" fill="white" fill-opacity="0.1" />
+  
+  <!-- Microphone stand -->
+  <path d="M35 45V50C35 58.3 41.7 65 50 65C58.3 65 65 58.3 65 50V45" stroke="url(#accent_gradient)" stroke-width="4" stroke-linecap="round" />
+  
+  <!-- Base of microphone stand -->
+  <path d="M50 65V75" stroke="url(#accent_gradient)" stroke-width="4" stroke-linecap="round" />
+  <path d="M40 75H60" stroke="url(#accent_gradient)" stroke-width="4" stroke-linecap="round" />
+  
+  <!-- Sound wave circles representing communication -->
+  <circle cx="50" cy="40" r="5" fill="white" fill-opacity="0.9" />
+  <circle cx="50" cy="40" r="3" fill="#4FACFF" fill-opacity="0.5" />
+  
+  <!-- Dynamic sound waves emanating from microphone -->
+  <path d="M25 40C25 40 20 40 20 50C20 60 25 60 25 60" stroke="url(#wave_gradient)" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M30 35C30 35 17 35 17 50C17 65 30 65 30 65" stroke="url(#wave_gradient)" stroke-width="2.5" stroke-linecap="round" />
+  
+  <path d="M75 40C75 40 80 40 80 50C80 60 75 60 75 60" stroke="url(#wave_gradient)" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M70 35C70 35 83 35 83 50C83 65 70 65 70 65" stroke="url(#wave_gradient)" stroke-width="2.5" stroke-linecap="round" />
+  
+  <!-- Pulsating dots along the waves for dynamic feel -->
+  <circle cx="25" cy="40" r="1.5" fill="white" />
+  <circle cx="25" cy="60" r="1.5" fill="white" />
+  <circle cx="75" cy="40" r="1.5" fill="white" />
+  <circle cx="75" cy="60" r="1.5" fill="white" />
+  
+  <!-- Check mark in a circular background representing success -->
+  <circle cx="50" cy="78" r="15" fill="url(#success_gradient)" fill-opacity="0.8" />
+  <path d="M40 78L47 85L60 72" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Document icon in the background suggesting interview preparation -->
+  <path d="M28 35L28 25C28 23.8954 28.8954 23 30 23L40 23" stroke="#4FACFF" stroke-width="1" stroke-opacity="0.2" />
+  <path d="M40 23L40 25C40 26.1046 38.8954 27 37.5 27L30 27C28.8954 27 28 26.1046 28 25" stroke="#4FACFF" stroke-width="1" stroke-opacity="0.2" />
+  <rect x="28" y="27" width="12" height="15" rx="1" stroke="#4FACFF" stroke-width="1" stroke-opacity="0.2" />
+  
+  <!-- Modern glow effects -->
+  <circle cx="50" cy="50" r="35" fill="url(#glow_gradient)" fill-opacity="0.15" />
+  <circle cx="50" cy="78" r="8" fill="url(#glow_gradient)" fill-opacity="0.2" />
   
   <defs>
-    <!-- Main dark blue-black gradient -->
-    <linearGradient id="paint0_linear" x1="20" y1="0" x2="20" y2="40" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0F2B4C" />
-      <stop offset="1" stop-color="#071426" />
+    <!-- Professional dark blue gradient -->
+    <linearGradient id="background_gradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#001A42" />
+      <stop offset="1" stop-color="#000a1a" />
+    </linearGradient>
+    
+    <!-- Subtle pattern gradient -->
+    <linearGradient id="pattern_gradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1E88E5" stop-opacity="0.1" />
+      <stop offset="1" stop-color="#4FACFF" stop-opacity="0.05" />
     </linearGradient>
     
     <!-- Inner gradient for depth -->
-    <linearGradient id="paint1_linear" x1="20" y1="4" x2="20" y2="36" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#1E4D8C" />
-      <stop offset="1" stop-color="#0A2540" />
+    <linearGradient id="inner_gradient" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1E88E5" />
+      <stop offset="1" stop-color="#0D47A1" />
     </linearGradient>
     
-    <!-- Letter "A" gradient -->
-    <linearGradient id="paint2_linear" x1="16" y1="12" x2="24" y2="25" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#56CCF2" />
-      <stop offset="1" stop-color="#2D9CDB" />
+    <!-- Microphone gradient -->
+    <linearGradient id="mic_gradient" x1="40" y1="20" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4FACFF" />
+      <stop offset="1" stop-color="#1E88E5" />
+    </linearGradient>
+    
+    <!-- Accent gradient -->
+    <linearGradient id="accent_gradient" x1="35" y1="45" x2="65" y2="75" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#64B5F6" />
+      <stop offset="1" stop-color="#1E88E5" />
+    </linearGradient>
+    
+    <!-- Wave gradient -->
+    <linearGradient id="wave_gradient" x1="15" y1="35" x2="85" y2="65" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#64B5F6" />
+      <stop offset="1" stop-color="#4FACFF" />
+    </linearGradient>
+    
+    <!-- Orbit gradient -->
+    <linearGradient id="orbit_gradient" x1="15" y1="50" x2="85" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4FACFF" />
+      <stop offset="1" stop-color="#1E88E5" />
+    </linearGradient>
+    
+    <!-- Success badge gradient -->
+    <linearGradient id="success_gradient" x1="35" y1="65" x2="65" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4FACFF" />
+      <stop offset="1" stop-color="#0D47A1" />
     </linearGradient>
     
     <!-- Glow effect -->
-    <radialGradient id="paint3_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(20 20) rotate(90) scale(12)">
-      <stop offset="0" stop-color="#56CCF2" />
-      <stop offset="1" stop-color="#2D9CDB" stop-opacity="0" />
+    <radialGradient id="glow_gradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(50 50) rotate(90) scale(35)">
+      <stop offset="0" stop-color="#4FACFF" />
+      <stop offset="1" stop-color="#1E88E5" stop-opacity="0" />
     </radialGradient>
   </defs>
 </svg>

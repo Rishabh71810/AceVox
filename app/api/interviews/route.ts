@@ -19,17 +19,20 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!role || !type) {
-      console.log('Missing required fields:', { role, type });
+    if (!type) {
+      console.log('Missing required field: type');
       return Response.json(
-        { success: false, message: 'Missing required fields' },
+        { success: false, message: 'Missing required field: type' },
         { status: 400 }
       );
     }
+    
+    // Set default role if missing
+    const roleValue = role || 'Software Developer';
 
     // Create interview object with default values for any missing fields
     const interview = {
-      role: role || 'Software Developer',
+      role: roleValue,
       type: type || 'mixed',
       level: level || 'mid-level',
       techstack: Array.isArray(techstack) ? techstack : 

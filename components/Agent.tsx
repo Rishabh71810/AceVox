@@ -48,6 +48,20 @@ const Agent = ({
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isProcessingInterview, setIsProcessingInterview] = useState(false);
   const [interviewData, setInterviewData] = useState<InterviewData>({});
+  const [userProfileImage, setUserProfileImage] = useState<string>("/user-avatar.png");
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Load user profile image from localStorage
+  useEffect(() => {
+    setIsMounted(true);
+    
+    if (typeof window !== 'undefined') {
+      const savedImage = localStorage.getItem('userProfileImage');
+      if (savedImage) {
+        setUserProfileImage(savedImage);
+      }
+    }
+  }, []);
 
   // Use useCallback to prevent recreation of this function on each render
   const handleGenerateFeedback = useCallback(async (messages: SavedMessage[]) => {
@@ -100,84 +114,128 @@ const Agent = ({
         // First, look for specific role mentions in the entire conversation
         const fullConversation = messages.map(m => m.content.toLowerCase()).join(' ');
         
-        // Check for specific role mentions
+        // Check for specific role mentions with improved patterns
         const rolePatterns = [
-          /(?:devops|dev ops|developer operations)\s+(?:engineer|role|position|job)/i,
-          /(?:frontend|front-end|front end)\s+(?:developer|engineer|role|position|job)/i,
-          /(?:backend|back-end|back end)\s+(?:developer|engineer|role|position|job)/i,
-          /(?:fullstack|full-stack|full stack)\s+(?:developer|engineer|role|position|job)/i,
-          /(?:data\s+scientist|data\s+analyst|machine\s+learning|ml\s+engineer)/i,
-          /(?:product\s+manager|project\s+manager|scrum\s+master)/i,
-          /(?:ui|ux|ui\/ux)\s+(?:designer|developer)/i,
-          /(?:cloud\s+engineer|cloud\s+architect)/i,
-          /(?:security\s+engineer|security\s+analyst|penetration\s+tester)/i,
-          /(?:qa|quality\s+assurance|test\s+engineer)/i,
-          /(?:mobile|android|ios)\s+(?:developer|engineer)/i,
-          /(?:blockchain|crypto)\s+(?:developer|engineer)/i,
-          /(?:game\s+developer|game\s+designer|unity\s+developer)/i,
-          /(?:embedded\s+systems|firmware)\s+(?:engineer|developer)/i,
-          /(?:network\s+engineer|network\s+administrator)/i,
-          /(?:database\s+administrator|dba)/i
+          { pattern: /(?:devops|dev ops|developer operations)\s+(?:engineer|role|position|job)/i, role: "DevOps Engineer" },
+          { pattern: /(?:frontend|front-end|front end)\s+(?:developer|engineer|role|position|job)/i, role: "Frontend Developer" },
+          { pattern: /(?:backend|back-end|back end)\s+(?:developer|engineer|role|position|job)/i, role: "Backend Developer" },
+          { pattern: /(?:fullstack|full-stack|full stack)\s+(?:developer|engineer|role|position|job)/i, role: "Fullstack Developer" },
+          { pattern: /data\s+scientist/i, role: "Data Scientist" },
+          { pattern: /data\s+analyst/i, role: "Data Analyst" },
+          { pattern: /(?:machine\s+learning|ml)\s+(?:engineer|specialist)/i, role: "Machine Learning Engineer" },
+          { pattern: /product\s+manager/i, role: "Product Manager" },
+          { pattern: /project\s+manager/i, role: "Project Manager" },
+          { pattern: /scrum\s+master/i, role: "Scrum Master" },
+          { pattern: /(?:ui|ux|ui\/ux)\s+designer/i, role: "UI/UX Designer" },
+          { pattern: /cloud\s+(?:engineer|architect)/i, role: "Cloud Engineer" },
+          { pattern: /security\s+(?:engineer|analyst|specialist)/i, role: "Security Engineer" },
+          { pattern: /penetration\s+tester/i, role: "Penetration Tester" },
+          { pattern: /(?:qa|quality\s+assurance)\s+(?:engineer|analyst)/i, role: "QA Engineer" },
+          { pattern: /test\s+engineer/i, role: "Test Engineer" },
+          { pattern: /(?:android|ios|mobile)\s+(?:developer|engineer)/i, role: "Mobile Developer" },
+          { pattern: /(?:blockchain|crypto)\s+(?:developer|engineer)/i, role: "Blockchain Developer" },
+          { pattern: /game\s+(?:developer|designer)/i, role: "Game Developer" },
+          { pattern: /(?:embedded\s+systems|firmware)\s+(?:engineer|developer)/i, role: "Embedded Systems Engineer" },
+          { pattern: /network\s+(?:engineer|administrator)/i, role: "Network Engineer" },
+          { pattern: /(?:database\s+administrator|dba)/i, role: "Database Administrator" },
+          { pattern: /(?:software|application)\s+(?:developer|engineer)/i, role: "Software Developer" },
+          { pattern: /(?:java|python|javascript|typescript|php|ruby|c\+\+|c#|go|rust)\s+(?:developer|engineer)/i, role: null }, // Will be handled specially below
+          { pattern: /web\s+developer/i, role: "Web Developer" },
+          { pattern: /(?:system|systems)\s+(?:administrator|admin)/i, role: "Systems Administrator" },
+          { pattern: /(?:devops|devsecops|cloud)\s+engineer/i, role: "DevOps Engineer" },
+          { pattern: /data\s+engineer/i, role: "Data Engineer" },
+          { pattern: /site\s+reliability\s+engineer/i, role: "Site Reliability Engineer" },
+          { pattern: /solutions\s+architect/i, role: "Solutions Architect" },
+          { pattern: /technical\s+(?:lead|director)/i, role: "Technical Lead" },
+          { pattern: /ux\s+researcher/i, role: "UX Researcher" }
+        ];
+        
+        // Language-specific roles pattern to check after other patterns
+        const languagePatterns = [
+          { pattern: /java\s+(?:developer|engineer)/i, role: "Java Developer" },
+          { pattern: /python\s+(?:developer|engineer)/i, role: "Python Developer" },
+          { pattern: /javascript\s+(?:developer|engineer)/i, role: "JavaScript Developer" },
+          { pattern: /typescript\s+(?:developer|engineer)/i, role: "TypeScript Developer" },
+          { pattern: /php\s+(?:developer|engineer)/i, role: "PHP Developer" },
+          { pattern: /ruby\s+(?:developer|engineer)/i, role: "Ruby Developer" },
+          { pattern: /c\+\+\s+(?:developer|engineer)/i, role: "C++ Developer" },
+          { pattern: /c#\s+(?:developer|engineer)/i, role: "C# Developer" },
+          { pattern: /go\s+(?:developer|engineer)/i, role: "Go Developer" },
+          { pattern: /rust\s+(?:developer|engineer)/i, role: "Rust Developer" }
         ];
         
         // Try to match specific roles first
-        for (const pattern of rolePatterns) {
+        let roleFound = false;
+        for (const { pattern, role } of rolePatterns) {
           const match = fullConversation.match(pattern);
           if (match) {
-            // Format the role properly (capitalize first letter of each word)
-            interviewInfo.role = match[0].replace(/\b\w/g, c => c.toUpperCase());
-            break;
+            // For language patterns, we'll handle them specially
+            if (role === null) {
+              // Check if this is a language-specific role
+              for (const langPattern of languagePatterns) {
+                const langMatch = fullConversation.match(langPattern.pattern);
+                if (langMatch) {
+                  interviewInfo.role = langPattern.role;
+                  roleFound = true;
+                  break;
+                }
+              }
+            } else {
+              // For non-language specific roles
+              interviewInfo.role = role;
+              roleFound = true;
+            }
+            if (roleFound) break;
           }
         }
         
-        // If no specific role was found, try the general approach
-        if (!interviewInfo.role) {
-          for (const message of messages) {
-            const content = message.content.toLowerCase();
-            
-            // Try to extract role information
-            if (content.includes("role") && !interviewInfo.role) {
-              // Try different patterns for role extraction
-              let roleMatch = content.match(/role\s*(?:is|:)\s*([a-z0-9\s\-\/]+)(?:\.|\,|\s|$)/i);
-              if (!roleMatch) {
-                roleMatch = content.match(/(?:for|as|a)\s+([a-z0-9\s\-\/]+)\s+(?:role|position|job)/i);
-              }
-              if (!roleMatch) {
-                roleMatch = content.match(/interview\s+for\s+(?:a|an)\s+([a-z0-9\s\-\/]+)/i);
+        // If no specific role was found, try more general extraction approaches
+        if (!roleFound) {
+          // Look for explicit mentions of a role
+          const roleExplicitMentions = [
+            /interviewing\s+for\s+(?:a|an)\s+([a-z0-9\s\-\/]+?)\s+(?:role|position)/i,
+            /preparing\s+for\s+(?:a|an)\s+([a-z0-9\s\-\/]+?)\s+(?:interview|role|position)/i,
+            /interview\s+for\s+(?:a|an)\s+([a-z0-9\s\-\/]+?)\s+(?:role|position)/i,
+            /role\s+is\s+(?:a|an)\s+([a-z0-9\s\-\/]+)/i,
+            /position\s+(?:is|of)\s+(?:a|an)\s+([a-z0-9\s\-\/]+)/i,
+            /applying\s+(?:for|to)\s+(?:a|an)\s+([a-z0-9\s\-\/]+?)\s+(?:role|position)/i
+          ];
+          
+          for (const pattern of roleExplicitMentions) {
+            const match = fullConversation.match(pattern);
+            if (match && match[1]) {
+              // Format the role properly (capitalize first letter of each word)
+              interviewInfo.role = match[1].trim().replace(/\b\w/g, c => c.toUpperCase());
+              roleFound = true;
+              break;
+            }
+          }
+          
+          // If still no role found, check for role mentions in individual messages
+          if (!roleFound) {
+            for (const message of messages) {
+              const content = message.content.toLowerCase();
+              
+              // Try to extract role information with more patterns
+              const rolePatterns = [
+                /role\s*(?:is|:)\s*([a-z0-9\s\-\/]+)(?:\.|\,|\s|$)/i,
+                /(?:for|as|a)\s+([a-z0-9\s\-\/]+)\s+(?:role|position|job)/i,
+                /interview\s+for\s+(?:a|an)\s+([a-z0-9\s\-\/]+)/i,
+                /preparing\s+for\s+(?:a|an)\s+([a-z0-9\s\-\/]+)/i,
+                /position\s+(?:is|as)\s+(?:a|an)\s+([a-z0-9\s\-\/]+)/i
+              ];
+              
+              for (const pattern of rolePatterns) {
+                const roleMatch = content.match(pattern);
+                if (roleMatch && roleMatch[1]) {
+                  // Format the role properly (capitalize first letter of each word)
+                  interviewInfo.role = roleMatch[1].trim().replace(/\b\w/g, c => c.toUpperCase());
+                  roleFound = true;
+                  break;
+                }
               }
               
-              if (roleMatch && roleMatch[1]) {
-                // Format the role properly (capitalize first letter of each word)
-                interviewInfo.role = roleMatch[1].trim().replace(/\b\w/g, c => c.toUpperCase());
-              }
-            }
-            
-            // Try to extract type information
-            if (content.includes("technical") && !interviewInfo.type) {
-              interviewInfo.type = "technical";
-            } else if (content.includes("behavioral") && !interviewInfo.type) {
-              interviewInfo.type = "behavioral";
-            } else if (content.includes("mixed") && !interviewInfo.type) {
-              interviewInfo.type = "mixed";
-            }
-            
-            // Try to extract level information
-            if (content.includes("level") && !interviewInfo.level) {
-              if (content.includes("junior")) {
-                interviewInfo.level = "junior";
-              } else if (content.includes("mid")) {
-                interviewInfo.level = "mid-level";
-              } else if (content.includes("senior")) {
-                interviewInfo.level = "senior";
-              }
-            }
-            
-            // Try to extract techstack information
-            if (content.includes("tech") && !interviewInfo.techstack) {
-              const techMatch = content.match(/tech\s*(?:stack|:)\s*([a-z0-9,\s\-\/\.]+)(?:\.|\,|\s|$)/i);
-              if (techMatch && techMatch[1]) {
-                interviewInfo.techstack = techMatch[1].split(",").map(t => t.trim());
-              }
+              if (roleFound) break;
             }
           }
         }
@@ -277,11 +335,75 @@ const Agent = ({
           // Try to extract interview data from the assistant's message
           const content = message.transcript.toLowerCase();
           
-          // Extract role if mentioned
-          if (content.includes("role")) {
-            const roleMatch = content.match(/role\s*(?:is|:)\s*([a-z\s]+)/i);
+          // Extract role if mentioned - improved role extraction
+          // First check for common role patterns
+          const rolePatterns = [
+            { regex: /(?:frontend|front-end|front end)\s+(?:developer|engineer)/i, role: "Frontend Developer" },
+            { regex: /(?:backend|back-end|back end)\s+(?:developer|engineer)/i, role: "Backend Developer" },
+            { regex: /(?:fullstack|full-stack|full stack)\s+(?:developer|engineer)/i, role: "Fullstack Developer" },
+            { regex: /(?:devops|dev ops)\s+engineer/i, role: "DevOps Engineer" },
+            { regex: /data\s+scientist/i, role: "Data Scientist" },
+            { regex: /data\s+analyst/i, role: "Data Analyst" },
+            { regex: /(?:machine\s+learning|ml)\s+engineer/i, role: "Machine Learning Engineer" },
+            { regex: /(?:ui|ux|ui\/ux)\s+designer/i, role: "UI/UX Designer" },
+            { regex: /product\s+manager/i, role: "Product Manager" },
+            { regex: /project\s+manager/i, role: "Project Manager" },
+            { regex: /java\s+developer/i, role: "Java Developer" },
+            { regex: /python\s+developer/i, role: "Python Developer" },
+            { regex: /javascript\s+developer/i, role: "JavaScript Developer" },
+            { regex: /typescript\s+developer/i, role: "TypeScript Developer" },
+            { regex: /cloud\s+engineer/i, role: "Cloud Engineer" }
+          ];
+          
+          let roleFound = false;
+          
+          // First check for explicit role patterns
+          for (const pattern of rolePatterns) {
+            if (content.match(pattern.regex)) {
+              setInterviewData(prev => ({ ...prev, role: pattern.role }));
+              roleFound = true;
+              break;
+            }
+          }
+          
+          // If no specific role was found, try looking for role mentions
+          if (!roleFound && content.includes("role")) {
+            const roleMatch = content.match(/role(?:\s+is|\s*:\s*|\s+for\s+the\s+position\s+of)\s+([a-z0-9\s\-\/]+)(?:\.|\,|\s|$)/i);
             if (roleMatch && roleMatch[1]) {
-              setInterviewData(prev => ({ ...prev, role: roleMatch[1].trim() }));
+              // Format the role properly (capitalize first letter of each word)
+              const extractedRole = roleMatch[1].trim().replace(/\b\w/g, c => c.toUpperCase());
+              setInterviewData(prev => ({ ...prev, role: extractedRole }));
+              roleFound = true;
+            }
+          }
+          
+          // If still no role found, check for position mentions
+          if (!roleFound && content.includes("position")) {
+            const positionMatch = content.match(/position(?:\s+is|\s*:\s*|\s+of)\s+([a-z0-9\s\-\/]+)(?:\.|\,|\s|$)/i);
+            if (positionMatch && positionMatch[1]) {
+              // Format the position properly (capitalize first letter of each word)
+              const extractedRole = positionMatch[1].trim().replace(/\b\w/g, c => c.toUpperCase());
+              setInterviewData(prev => ({ ...prev, role: extractedRole }));
+              roleFound = true;
+            }
+          }
+          
+          // If still no role found, look for job-related phrases
+          if (!roleFound) {
+            const jobPhrases = [
+              /preparing\s+for\s+(?:a|an)\s+([a-z0-9\s\-\/]+?)\s+interview/i,
+              /interviewing\s+for\s+(?:a|an)\s+([a-z0-9\s\-\/]+?)\s+position/i,
+              /(?:a|an)\s+([a-z0-9\s\-\/]+?)\s+job\s+interview/i
+            ];
+            
+            for (const phrase of jobPhrases) {
+              const match = content.match(phrase);
+              if (match && match[1]) {
+                const extractedRole = match[1].trim().replace(/\b\w/g, c => c.toUpperCase());
+                setInterviewData(prev => ({ ...prev, role: extractedRole }));
+                roleFound = true;
+                break;
+              }
             }
           }
           
@@ -430,11 +552,11 @@ const Agent = ({
         <div className="card-border">
           <div className="card-content">
             <Image
-              src=""
+              src={isMounted ? userProfileImage : "/user-avatar.png"}
               alt="profile-image"
-              width={539}
-              height={539}
-              className="rounded-full object-cover size-[120px]"
+              width={120}
+              height={120}
+              className="rounded-full object-cover size-[120px] border-2 border-[#1e88e5]/30"
             />
             <h3>{userName}</h3>
           </div>

@@ -98,18 +98,18 @@ const ModernAuthForm = ({ type }: { type: FormType }) => {
   const isSignIn = type === "sign-in";
 
   return (
-    <div className="flex w-full max-w-5xl">
+    <div className="flex w-full max-w-5xl mx-auto">
       {/* Left column with image and features */}
-      <div className="hidden lg:flex flex-col w-1/2 bg-gradient-to-b from-[#0F2B4C] to-[#071426] p-12 rounded-l-3xl justify-between">
+      <div className="hidden lg:flex flex-col w-1/2 bg-gradient-to-b from-[#001326] to-[#000205] p-12 rounded-l-3xl justify-between shadow-xl shadow-[#001e3d]/10">
         <div className="flex items-center gap-3">
           <Image src="/logo.svg" alt="Acevox" width={40} height={40} className="w-10 h-10" />
-          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#56CCF2] to-[#2D9CDB]">
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4facff] to-[#1e88e5]">
             Acevox
           </h1>
         </div>
         
         <div className="mt-16 mb-auto">
-          <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-[#56CCF2] mb-6">
+          <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-[#4facff] mb-6">
             Power your job interviews with AI
           </h2>
           <p className="text-light-100/80 text-lg">
@@ -119,9 +119,9 @@ const ModernAuthForm = ({ type }: { type: FormType }) => {
           <div className="mt-12 space-y-6">
             {/* Feature list */}
             <div className="flex items-start gap-3">
-              <div className="size-6 bg-[#2D9CDB]/20 rounded-full flex-center mt-1">
+              <div className="size-6 bg-[#1e88e5]/20 rounded-full flex-center mt-1">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="#56CCF2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M20 6L9 17L4 12" stroke="#4facff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div>
@@ -131,9 +131,9 @@ const ModernAuthForm = ({ type }: { type: FormType }) => {
             </div>
             
             <div className="flex items-start gap-3">
-              <div className="size-6 bg-[#2D9CDB]/20 rounded-full flex-center mt-1">
+              <div className="size-6 bg-[#1e88e5]/20 rounded-full flex-center mt-1">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="#56CCF2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M20 6L9 17L4 12" stroke="#4facff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div>
@@ -143,9 +143,9 @@ const ModernAuthForm = ({ type }: { type: FormType }) => {
             </div>
             
             <div className="flex items-start gap-3">
-              <div className="size-6 bg-[#2D9CDB]/20 rounded-full flex-center mt-1">
+              <div className="size-6 bg-[#1e88e5]/20 rounded-full flex-center mt-1">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="#56CCF2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M20 6L9 17L4 12" stroke="#4facff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div>
@@ -162,15 +162,15 @@ const ModernAuthForm = ({ type }: { type: FormType }) => {
       </div>
       
       {/* Right column with form */}
-      <div className="w-full lg:w-1/2 bg-gradient-to-b from-[#071426] to-[#030712] p-8 md:p-12 rounded-3xl lg:rounded-l-none lg:rounded-r-3xl">
-        <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
+      <div className="w-full lg:w-1/2 bg-gradient-to-b from-[#001326] to-[#000205] p-6 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl lg:rounded-l-none lg:rounded-r-3xl shadow-xl shadow-[#000205]/10">
+        <div className="lg:hidden flex items-center justify-center gap-3 mb-6 sm:mb-8">
           <Image src="/logo.svg" alt="Acevox" width={40} height={40} className="w-10 h-10" />
-          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#56CCF2] to-[#2D9CDB]">
+          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4facff] to-[#1e88e5]">
             Acevox
           </h1>
         </div>
         
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <h2 className="text-2xl font-bold text-white mb-2">
             {isSignIn ? "Welcome back" : "Create your account"}
           </h2>
@@ -212,7 +212,7 @@ const ModernAuthForm = ({ type }: { type: FormType }) => {
               type="password"
             />
 
-            <Button className="w-full bg-gradient-to-r from-[#56CCF2] to-[#2D9CDB] hover:from-[#2D9CDB] hover:to-[#2381B0] text-white rounded-full mt-4" type="submit">
+            <Button className="w-full bg-gradient-to-r from-[#4facff] to-[#1e88e5] hover:from-[#1e88e5] hover:to-[#1565c0] text-white rounded-full mt-4" type="submit">
               {isSignIn ? "Sign In" : "Create Account"}
             </Button>
           </form>
@@ -223,7 +223,7 @@ const ModernAuthForm = ({ type }: { type: FormType }) => {
             {isSignIn ? "Don't have an account?" : "Already have an account?"}
             <Link
               href={isSignIn ? "/sign-up" : "/sign-in"}
-              className="text-[#56CCF2] font-medium ml-2 hover:text-[#2D9CDB] transition-colors"
+              className="text-[#4facff] font-medium ml-2 hover:text-[#1e88e5] transition-colors"
             >
               {isSignIn ? "Sign Up" : "Sign In"}
             </Link>

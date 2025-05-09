@@ -29,10 +29,8 @@ const page = async () => {
   return (
     <div className="flex flex-col gap-20">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#021326] to-[#000810] rounded-3xl px-16 py-16 flex flex-col items-center text-center gap-8 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <Image src="/pattern.png" alt="Background Pattern" fill className="object-cover" />
-        </div>
+      <section className="bg-gradient-to-b from-[#001326] to-[#000205] rounded-3xl px-16 py-16 flex flex-col items-center text-center gap-8 relative overflow-hidden shadow-xl shadow-[#1e88e5]/10 glow">
+        <div className="absolute inset-0 pattern"></div>
         <h1 className="text-5xl md:text-6xl font-bold max-w-4xl z-10 bg-clip-text text-transparent bg-gradient-to-r from-white to-[#4facff]">
           Transforming interviews with AI powered automation
         </h1>
@@ -43,17 +41,17 @@ const page = async () => {
           <Button asChild className="bg-gradient-to-r from-[#4facff] to-[#1e88e5] hover:from-[#1e88e5] hover:to-[#1565c0] text-white rounded-full text-lg px-8 py-6">
             <Link href="/interview">Start Interview</Link>
           </Button>
-          <Button asChild className="bg-dark-200 text-[#4facff] hover:bg-dark-200/80 hover:text-[#1e88e5] rounded-full text-lg px-8 py-6">
+          <Button asChild className="bg-[#001e3d] text-[#4facff] hover:bg-[#00294f] hover:text-[#1e88e5] rounded-full text-lg px-8 py-6">
             <Link href="#features">Explore Features</Link>
           </Button>
         </div>
         
         {/* AI-Enhanced Visual */}
         <div className="relative w-full mt-8 flex justify-center z-10">
-          <div className="bg-dark-300/50 backdrop-blur-md p-6 rounded-2xl border border-[#1e88e5]/20 flex items-center gap-5 max-w-xl">
+          <div className="bg-[#001e3d]/50 backdrop-blur-md p-6 rounded-2xl border border-[#1e88e5]/20 flex items-center gap-5 max-w-xl">
             <div className="flex-shrink-0">
               <div className="bg-gradient-to-r from-[#4facff] to-[#1e88e5] rounded-full p-3">
-                <Image src="/robot.png" alt="AI Assistant" width={60} height={60} className="size-15" />
+                <Image src="/ai-interviewer.svg" alt="AI Interviewer" width={60} height={60} className="size-15" />
               </div>
             </div>
             <div className="flex flex-col gap-2">
@@ -78,8 +76,8 @@ const page = async () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Service 1 */}
           <div className="card-border h-full">
-            <div className="card p-8 flex flex-col gap-6 min-h-80 border border-[#0a2d5c]/60">
-              <div className="size-16 bg-[#0a2d5c] rounded-xl flex-center">
+            <div className="card p-8 flex flex-col gap-6 min-h-80 border border-[#001e3d]/60">
+              <div className="size-16 bg-[#001e3d] rounded-xl flex-center">
                 <Image src="/ai-interview.svg" alt="AI Interview" width={32} height={32} />
               </div>
               <h3 className="text-xl font-bold">AI Interview Practice</h3>
@@ -91,8 +89,8 @@ const page = async () => {
           
           {/* Service 2 */}
           <div className="card-border h-full">
-            <div className="card p-8 flex flex-col gap-6 min-h-80 border border-[#0a2d5c]/60">
-              <div className="size-16 bg-[#0a2d5c] rounded-xl flex-center">
+            <div className="card p-8 flex flex-col gap-6 min-h-80 border border-[#001e3d]/60">
+              <div className="size-16 bg-[#001e3d] rounded-xl flex-center">
                 <Image src="/feedback.svg" alt="Feedback" width={32} height={32} />
               </div>
               <h3 className="text-xl font-bold">Detailed Feedback</h3>
@@ -104,13 +102,13 @@ const page = async () => {
           
           {/* Service 3 */}
           <div className="card-border h-full">
-            <div className="card p-8 flex flex-col gap-6 min-h-80 border border-[#0a2d5c]/60">
-              <div className="size-16 bg-[#0a2d5c] rounded-xl flex-center">
+            <div className="card p-8 flex flex-col gap-6 min-h-80 border border-[#001e3d]/60">
+              <div className="size-16 bg-[#001e3d] rounded-xl flex-center">
                 <Image src="/tech.svg" alt="Tech Stack" width={32} height={32} />
               </div>
               <h3 className="text-xl font-bold">Tech-Specific Training</h3>
               <p className="text-light-100/80">
-                Customize your interview practice based on specific technologies and roles you're targeting
+                Customize your interview practice based on specific technologies and roles you&apos;re targeting
               </p>
             </div>
           </div>
@@ -169,7 +167,7 @@ const page = async () => {
       )}
       
       {/* CTA Section */}
-      <section className="bg-gradient-to-b from-[#021326] to-[#000810] rounded-3xl px-12 py-12 flex flex-col md:flex-row items-center justify-between gap-10">
+      <section className="bg-gradient-to-b from-[#001326] to-[#000205] rounded-3xl px-12 py-12 flex flex-col md:flex-row items-center justify-between gap-10 shadow-xl shadow-[#1e88e5]/10">
         <div className="flex flex-col gap-6 max-w-xl">
           <h2 className="text-3xl font-bold">Ready to ace your next interview?</h2>
           <p className="text-light-100/80">

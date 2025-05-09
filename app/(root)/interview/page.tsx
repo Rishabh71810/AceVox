@@ -6,10 +6,10 @@ async function Home(){
   if (!user) return null;
   
   return (
-    <>
-    <h3>Interview Generation</h3>
-    <Agent userName={user.name} userId={user.id}  type="generate"/>
-    </>
+    <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <h3 className="text-2xl font-semibold mb-8 text-white">Interview Generation</h3>
+      <Agent userName={user.name} userId={user.id} type="generate"/>
+    </div>
   )
 }
 

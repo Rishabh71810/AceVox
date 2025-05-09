@@ -1,0 +1,48 @@
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="30" cy="30" r="30" fill="#1E88E5" fill-opacity="0.1"/>
+  
+  <!-- Outer microphone shape -->
+  <rect x="24" y="10" width="12" height="22" rx="6" fill="#1E88E5"/>
+  
+  <!-- Microphone mesh -->
+  <rect x="26" y="14" width="8" height="8" rx="2" fill="white" fill-opacity="0.3"/>
+  <rect x="27" y="16" width="6" height="1" rx="0.5" fill="white" fill-opacity="0.5"/>
+  <rect x="27" y="18" width="6" height="1" rx="0.5" fill="white" fill-opacity="0.5"/>
+  <rect x="27" y="20" width="6" height="1" rx="0.5" fill="white" fill-opacity="0.5"/>
+  
+  <!-- Microphone stand -->
+  <rect x="29" y="32" width="2" height="10" fill="#1E88E5"/>
+  <rect x="22" y="42" width="16" height="2" rx="1" fill="#1E88E5"/>
+  
+  <!-- Sound waves left -->
+  <path d="M18 22C17 24 16 27 16 30C16 33 17 36 18 38" stroke="#4FACFF" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M14 18C12 22 11 26 11 30C11 34 12 38 14 42" stroke="#4FACFF" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Sound waves right -->
+  <path d="M42 22C43 24 44 27 44 30C44 33 43 36 42 38" stroke="#4FACFF" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M46 18C48 22 49 26 49 30C49 34 48 38 46 42" stroke="#4FACFF" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Speech bubble -->
+  <path d="M46 24C46 22.3431 44.6569 21 43 21H35C33.3431 21 32 22.3431 32 24V28C32 29.6569 33.3431 31 35 31H38L42 35V31H43C44.6569 31 46 29.6569 46 28V24Z" fill="white" fill-opacity="0.9"/>
+  
+  <!-- Professional elements: headset -->
+  <path d="M21 18C21 14.6863 24.6863 12 30 12C35.3137 12 39 14.6863 39 18" stroke="#1E88E5" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M21 18V22" stroke="#1E88E5" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M39 18V22" stroke="#1E88E5" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Headset earpiece left -->
+  <rect x="19" y="18" width="3" height="6" rx="1.5" fill="#1E88E5"/>
+  
+  <!-- Headset earpiece right -->
+  <rect x="38" y="18" width="3" height="6" rx="1.5" fill="#1E88E5"/>
+  
+  <!-- Speech bubble dots -->
+  <circle cx="36" cy="26" r="1" fill="#1E88E5"/>
+  <circle cx="39" cy="26" r="1" fill="#1E88E5"/>
+  <circle cx="42" cy="26" r="1" fill="#1E88E5"/>
+  
+  <!-- Pulsating circle effect -->
+  <circle cx="30" cy="30" r="22" stroke="#4FACFF" stroke-opacity="0.3" stroke-width="1"/>
+  <circle cx="30" cy="30" r="26" stroke="#4FACFF" stroke-opacity="0.2" stroke-width="1"/>
+</svg> 
