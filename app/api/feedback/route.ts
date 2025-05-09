@@ -1,15 +1,17 @@
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/firebase/admin';
 import { Feedback } from '@/types';
 
-export async function GET(request: Request) {
+export const dynamic = 'force-dynamic'; // Force dynamic rendering
+
+export async function GET(request: NextRequest) {
   try {
     // Get the interviewId and userId from the URL query parameters
-    const url = new URL(request.url);
-    const interviewId = url.searchParams.get('interviewId');
-    const userId = url.searchParams.get('userId');
+    const interviewId = request.nextUrl.searchParams.get('interviewId');
+    const userId = request.nextUrl.searchParams.get('userId');
 
     if (!interviewId || !userId) {
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: 'Missing required parameters' },
         { status: 400 }
       );
@@ -24,7 +26,7 @@ export async function GET(request: Request) {
       .get();
 
     if (querySnapshot.empty) {
-      return Response.json(
+      return NextResponse.json(
         { success: true, feedback: null },
         { status: 200 }
       );
@@ -37,13 +39,13 @@ export async function GET(request: Request) {
       ...feedbackDoc.data()
     } as Feedback;
 
-    return Response.json(
+    return NextResponse.json(
       { success: true, feedback },
       { status: 200 }
     );
   } catch (error) {
     console.error('Error fetching feedback:', error);
-    return Response.json(
+    return NextResponse.json(
       { success: false, message: 'Error fetching feedback' },
       { status: 500 }
     );

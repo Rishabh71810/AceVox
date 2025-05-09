@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTechLogos } from '@/lib/utils';
 
+export const dynamic = 'force-dynamic'; // Force dynamic rendering
+
 export async function GET(request: NextRequest) {
   try {
-    const url = new URL(request.url);
-    const stackParam = url.searchParams.get('stack');
+    const stackParam = request.nextUrl.searchParams.get('stack');
     
     if (!stackParam) {
       return NextResponse.json({ error: 'Missing stack parameter' }, { status: 400 });

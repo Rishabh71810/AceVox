@@ -1,19 +1,21 @@
 'use server';
 
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/firebase/admin';
 import { Feedback } from '@/types';
 
+export const dynamic = 'force-dynamic'; // Force dynamic rendering
+
 export async function GET(
-  request: Request,
+  request: NextRequest,
   context: { params: { id: string } }
 ) {
   try {
-    // Await params before accessing its properties
-    const { id } = await context.params;
+    const { id } = context.params;
     const feedbackId = id;
 
     if (!feedbackId) {
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: 'Missing feedback ID' },
         { status: 400 }
       );
@@ -23,7 +25,7 @@ export async function GET(
     const feedbackDoc = await db.collection('feedback').doc(feedbackId).get();
 
     if (!feedbackDoc.exists) {
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: 'Feedback not found' },
         { status: 404 }
       );
@@ -35,13 +37,13 @@ export async function GET(
       ...feedbackDoc.data()
     } as Feedback;
 
-    return Response.json(
+    return NextResponse.json(
       { success: true, feedback },
       { status: 200 }
     );
   } catch (error) {
     console.error('Error fetching feedback by ID:', error);
-    return Response.json(
+    return NextResponse.json(
       { success: false, message: 'Error fetching feedback' },
       { status: 500 }
     );
