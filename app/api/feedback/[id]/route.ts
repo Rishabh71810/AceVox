@@ -1,5 +1,3 @@
-'use server';
-
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/firebase/admin';
 import { Feedback } from '@/types';

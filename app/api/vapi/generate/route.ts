@@ -1,10 +1,10 @@
-'use server';
-
 import {generateText }from 'ai'
 import {google} from '@ai-sdk/google'
 import { getRandomInterviewCover } from '@/lib/utils';
 import {db} from '@/firebase/admin'
+import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic'; // Force dynamic rendering
 
 export async function POST(request:Request){
  try {
@@ -16,7 +16,7 @@ export async function POST(request:Request){
     // Validate required fields
     if (!userId) {
         console.log('Missing userId');
-        return Response.json(
+        return NextResponse.json(
             { success: false, message: 'User ID is required' },
             { status: 400 }
         );
@@ -24,7 +24,7 @@ export async function POST(request:Request){
 
     if (!role || !level || !techstack || !amount) {
         console.log('Missing required fields:', { role, level, techstack, amount });
-        return Response.json(
+        return NextResponse.json(
             { success: false, message: 'Missing required fields' },
             { status: 400 }
         );
@@ -60,10 +60,10 @@ export async function POST(request:Request){
     };
 
     await db.collection("interviews").add(interview);
-    return Response.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true }, { status: 200 });
  } catch (error) { 
     console.log('Error in generate route:', error);
-    return Response.json(
+    return NextResponse.json(
         { success: false, message: 'Error generating questions' },
         { status: 500 }
     );

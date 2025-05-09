@@ -1,7 +1,8 @@
-'use server';
-
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/firebase/admin';
 import { getRandomInterviewCover } from '@/lib/utils';
+
+export const dynamic = 'force-dynamic'; // Force dynamic rendering
 
 export async function POST(request: Request) {
   try {
@@ -13,7 +14,7 @@ export async function POST(request: Request) {
     // Validate required fields
     if (!userId) {
       console.log('Missing userId');
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: 'User ID is required' },
         { status: 400 }
       );
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
 
     if (!type) {
       console.log('Missing required field: type');
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: 'Missing required field: type' },
         { status: 400 }
       );
@@ -50,27 +51,26 @@ export async function POST(request: Request) {
     
     console.log('Interview created successfully with ID:', docRef.id);
     
-    return Response.json({ 
+    return NextResponse.json({ 
       success: true, 
       interviewId: docRef.id 
     }, { status: 201 });
     
   } catch (error) {
     console.error('Error creating interview:', error);
-    return Response.json(
+    return NextResponse.json(
       { success: false, message: 'Error creating interview' },
       { status: 500 }
     );
   }
 }
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const url = new URL(request.url);
-    const userId = url.searchParams.get('userId');
+    const userId = request.nextUrl.searchParams.get('userId');
     
     if (!userId) {
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: 'User ID is required' },
         { status: 400 }
       );
@@ -89,14 +89,14 @@ export async function GET(request: Request) {
     
     console.log(`Found ${interviewData.length} interviews for user ${userId}`);
     
-    return Response.json({ 
+    return NextResponse.json({ 
       success: true, 
       interviews: interviewData 
     }, { status: 200 });
     
   } catch (error) {
     console.error('Error fetching interviews:', error);
-    return Response.json(
+    return NextResponse.json(
       { success: false, message: 'Error fetching interviews' },
       { status: 500 }
     );
