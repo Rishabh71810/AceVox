@@ -1,38 +1,16 @@
-import {generateText }from 'ai'
-import {google} from '@ai-sdk/google'
-import { getRandomInterviewCover } from '@/lib/utils';
-import {db} from '@/firebase/admin'
-import { NextResponse } from 'next/server';
+import { generateText } from "ai";
+import { google } from "@ai-sdk/google";
 
-export const dynamic = 'force-dynamic'; // Force dynamic rendering
+import { db } from "@/firebase/admin";
+import { getRandomInterviewCover } from "@/lib/utils";
 
-export async function POST(request:Request){
- try {
-    const body = await request.json();
-    console.log('Received request body:', body);
-    
-    const {type, role, level, techstack, amount, userId} = body;
+export async function POST(request: Request) {
+  const { type, role, level, techstack, amount, userid } = await request.json();
 
-    // Validate required fields
-    if (!userId) {
-        console.log('Missing userId');
-        return NextResponse.json(
-            { success: false, message: 'User ID is required' },
-            { status: 400 }
-        );
-    }
-
-    if (!role || !level || !techstack || !amount) {
-        console.log('Missing required fields:', { role, level, techstack, amount });
-        return NextResponse.json(
-            { success: false, message: 'Missing required fields' },
-            { status: 400 }
-        );
-    }
-
-    const {text:questions} = await generateText({
-        model:google('gemini-2.0-flash-001'),
-        prompt:`Prepare questions for a job interview.
+  try {
+    const { text: questions } = await generateText({
+      model: google("gemini-2.0-flash-001"),
+      prompt: `Prepare questions for a job interview.
         The job role is ${role}.
         The job experience level is ${level}.
         The tech stack used in the job is: ${techstack}.
@@ -48,24 +26,26 @@ export async function POST(request:Request){
     });
 
     const interview = {
-        role,
-        type,
-        level,
-        techstack: techstack.split(","),
-        questions: JSON.parse(questions),
-        userId,
-        finalized: true,
-        coverImage: getRandomInterviewCover(),
-        createdAt: new Date().toISOString(),
+      role: role,
+      type: type,
+      level: level,
+      techstack: techstack.split(","),
+      questions: JSON.parse(questions),
+      userId: userid,
+      finalized: true,
+      coverImage: getRandomInterviewCover(),
+      createdAt: new Date().toISOString(),
     };
 
     await db.collection("interviews").add(interview);
-    return NextResponse.json({ success: true }, { status: 200 });
- } catch (error) { 
-    console.log('Error in generate route:', error);
-    return NextResponse.json(
-        { success: false, message: 'Error generating questions' },
-        { status: 500 }
-    );
- }
+
+    return Response.json({ success: true }, { status: 200 });
+  } catch (error) {
+    console.error("Error:", error);
+    return Response.json({ success: false, error: error }, { status: 500 });
+  }
+}
+
+export async function GET() {
+  return Response.json({ success: true, data: "Thank you!" }, { status: 200 });
 }

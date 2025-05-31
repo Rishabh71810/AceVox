@@ -1,8 +1,7 @@
-import React from 'react'
-import ModernAuthForm from '@/components/ModernAuthForm'
+import AuthForm from "@/components/AuthForm";
 
-const signIn = () => {
-  return <ModernAuthForm type="sign-in"/>
-}
+const Page = () => {
+  return <AuthForm type="sign-in" />;
+};
 
-export default signIn
+export default Page;

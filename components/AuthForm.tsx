@@ -2,23 +2,31 @@
 
 import { z } from "zod";
 import Link from "next/link";
-import Image from "next/image";
 import { toast } from "sonner";
 import { auth } from "@/firebase/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormType } from "@/types";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { signIn, signUp } from "@/lib/actions/auth.action";
-import FormField from "./FormField";
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -30,6 +38,7 @@ const authFormSchema = (type: FormType) => {
 
 const AuthForm = ({ type }: { type: FormType }) => {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -98,137 +107,124 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const isSignIn = type === "sign-in";
 
   return (
-    <div className="flex w-full max-w-5xl mx-auto">
-      {/* Left column with image and features */}
-      <div className="hidden lg:flex flex-col w-1/2 bg-gradient-to-b from-[#001326] to-[#000205] p-12 rounded-l-3xl justify-between shadow-xl shadow-[#001e3d]/10">
-        <div className="flex items-center gap-3">
-          <Image src="/logo.svg" alt="Acevox" width={40} height={40} className="w-10 h-10" />
-          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4facff] to-[#1e88e5]">
-            Acevox
-          </h1>
-        </div>
-        
-        <div className="mt-16 mb-auto">
-          <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-[#4facff] mb-6">
-            Power your job interviews with AI
-          </h2>
-          <p className="text-light-100/80 text-lg">
-            Practice with our AI interviewer, get instant feedback, and land your dream job
-          </p>
-          
-          <div className="mt-12 space-y-6">
-            {/* Feature list */}
-            <div className="flex items-start gap-3">
-              <div className="size-6 bg-[#1e88e5]/20 rounded-full flex-center mt-1">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="#4facff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-white font-semibold">Realistic interviews</h3>
-                <p className="text-light-100/70 text-sm">Practice with our AI that simulates real world interviews</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-3">
-              <div className="size-6 bg-[#1e88e5]/20 rounded-full flex-center mt-1">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="#4facff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-white font-semibold">Detailed feedback</h3>
-                <p className="text-light-100/70 text-sm">Get comprehensive insights on your performance</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-3">
-              <div className="size-6 bg-[#1e88e5]/20 rounded-full flex-center mt-1">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="#4facff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-white font-semibold">Tech-specific training</h3>
-                <p className="text-light-100/70 text-sm">Customize interviews based on your target role and technologies</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="mt-auto pt-6 border-t border-light-400/10">
-          <p className="text-light-400 text-sm">© {new Date().getFullYear()} Acevox. All rights reserved.</p>
-        </div>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          {isSignIn ? "Welcome back" : "Create your account"}
+        </h2>
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          {isSignIn 
+            ? "Sign in to continue your interview preparation" 
+            : "Join thousands of users preparing for interviews"
+          }
+        </p>
       </div>
-      
-      {/* Right column with form */}
-      <div className="w-full lg:w-1/2 bg-gradient-to-b from-[#001326] to-[#000205] p-6 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl lg:rounded-l-none lg:rounded-r-3xl shadow-xl shadow-[#000205]/10">
-        <div className="lg:hidden flex items-center justify-center gap-3 mb-6 sm:mb-8">
-          <Image src="/logo.svg" alt="Acevox" width={40} height={40} className="w-10 h-10" />
-          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4facff] to-[#1e88e5]">
-            Acevox
-          </h1>
-        </div>
-        
-        <div className="mb-6 sm:mb-8">
-          <h2 className="text-2xl font-bold text-white mb-2">
-            {isSignIn ? "Welcome back" : "Create your account"}
-          </h2>
-          <p className="text-light-100/70">
-            {isSignIn 
-              ? "Enter your credentials to access your account" 
-              : "Start practicing interviews with AI today"}
-          </p>
-        </div>
 
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-5 form"
-          >
-            {!isSignIn && (
-              <FormField
-                control={form.control}
-                name="name"
-                label="Full Name"
-                placeholder="Enter your full name"
-                type="text"
-              />
+      {/* Form */}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          {!isSignIn && (
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Full Name
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter your full name"
+                      type="text"
+                      className="h-12 rounded-lg border-gray-300 bg-white/50 dark:bg-gray-800/50 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Email Address
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter your email address"
+                    type="email"
+                    className="h-12 rounded-lg border-gray-300 bg-white/50 dark:bg-gray-800/50 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
+          />
 
-            <FormField
-              control={form.control}
-              name="email"
-              label="Email Address"
-              placeholder="Enter your email address"
-              type="email"
-            />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Password
+                </FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <Input
+                      placeholder="Enter your password"
+                      type={showPassword ? "text" : "password"}
+                      className="h-12 rounded-lg border-gray-300 bg-white/50 dark:bg-gray-800/50 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-12"
+                      {...field}
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4 text-gray-400" />
+                      ) : (
+                        <Eye className="h-4 w-4 text-gray-400" />
+                      )}
+                    </Button>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="password"
-              label="Password"
-              placeholder="Enter your password"
-              type="password"
-            />
+          <Button 
+            type="submit" 
+            className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+          >
+            {isSignIn ? "Sign In" : "Create Account"}
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </form>
+      </Form>
 
-            <Button className="w-full bg-gradient-to-r from-[#4facff] to-[#1e88e5] hover:from-[#1e88e5] hover:to-[#1565c0] text-white rounded-full mt-4" type="submit">
-              {isSignIn ? "Sign In" : "Create Account"}
-            </Button>
-          </form>
-        </Form>
-
-        <div className="mt-6 text-center">
-          <p className="text-light-400">
-            {isSignIn ? "Don't have an account?" : "Already have an account?"}
-            <Link
-              href={isSignIn ? "/sign-up" : "/sign-in"}
-              className="text-[#4facff] font-medium ml-2 hover:text-[#1e88e5] transition-colors"
-            >
-              {isSignIn ? "Sign Up" : "Sign In"}
-            </Link>
-          </p>
-        </div>
+      {/* Footer */}
+      <div className="text-center">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          {isSignIn ? "Don't have an account?" : "Already have an account?"}
+          <Link
+            href={!isSignIn ? "/sign-in" : "/sign-up"}
+            className="ml-1 font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+          >
+            {!isSignIn ? "Sign in" : "Sign up"}
+          </Link>
+        </p>
       </div>
     </div>
   );

@@ -1,33 +1,33 @@
-import React from 'react'
-import {Control, Controller, FieldValues, Path,} from "react-hook-form"
-import {
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
+import Image from "next/image";
 
-interface FormFieldProps<T extends FieldValues> {
-  control  :Control<T>;
-  name : Path<T>;
-  label : string;
-  placeholder? : string;
-  type? : 'text'|'email'|'password'|'number'|'fiLe'
-}
+import { cn, getTechLogos } from "@/lib/utils";
 
-import { Input } from "@/components/ui/input"
-const FormField = <T extends FieldValues>({control, name, label, placeholder, type = "text"}: FormFieldProps<T>) => {
+const DisplayTechIcons = async ({ techStack }: TechIconProps) => {
+  const techIcons = await getTechLogos(techStack);
+
   return (
-    <Controller name={name} control={control} render={({field}) => (
-      <FormItem>
-        <FormLabel className='label'>{label}</FormLabel>
-        <FormControl>
-          <Input className="input" placeholder={placeholder} type={type} {...field} />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}/>
-  );
-}
+    <div className="flex flex-row">
+      {techIcons.slice(0, 3).map(({ tech, url }, index) => (
+        <div
+          key={tech}
+          className={cn(
+            "relative group bg-dark-300 rounded-full p-2 flex flex-center",
+            index >= 1 && "-ml-3"
+          )}
+        >
+          <span className="tech-tooltip">{tech}</span>
 
-export default FormField
+          <Image
+            src={url}
+            alt={tech}
+            width={100}
+            height={100}
+            className="size-5"
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default DisplayTechIcons;

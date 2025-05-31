@@ -1,185 +1,357 @@
-import React from 'react'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import Image from 'next/image'
-import InterviewCard from '@/components/InterviewCard'
-import { getCurrentUser} from '@/lib/actions/auth.action'
-import { getInterviewsByUserId, getLatestInterviews } from '@/lib/actions/general.actions'
-import { Interview } from '@/types'
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight, CheckCircle, Star, Users, Zap, Target, Calendar, Clock, TrendingUp } from "lucide-react";
 
-// Set cache option to 'no-store' to ensure we always get fresh data
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-const page = async () => {
+import { getCurrentUser } from "@/lib/actions/auth.action";
+import {
+  getInterviewsByUserId,
+  getLatestInterviews,
+} from "@/lib/actions/general.actions";
+
+async function Home() {
   const user = await getCurrentUser();
-  if (!user) return null;
-  
-  // Add timestamp to force fresh data
-  const timestamp = Date.now();
-  
-  const [userInterviews, allInterview] = await Promise.all([
-    getInterviewsByUserId(user.id, timestamp) ?? [],
-    getLatestInterviews({ userId: user.id, timestamp }) ?? []
-  ]) as [Interview[], Interview[]];
 
-  const hasPastInterviews = userInterviews.length > 0;
-  const hasUpComingInterviews = allInterview.length > 0;
+  const [userInterviews, allInterview] = await Promise.all([
+    getInterviewsByUserId(user?.id!),
+    getLatestInterviews({ userId: user?.id! }),
+  ]);
+
+  const hasPastInterviews = userInterviews && userInterviews.length > 0;
   
+  // Add console log for debugging
+  console.log('User interviews:', userInterviews);
+  console.log('Has past interviews:', hasPastInterviews);
+
   return (
-    <div className="flex flex-col gap-20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#001326] to-[#000205] rounded-3xl px-16 py-16 flex flex-col items-center text-center gap-8 relative overflow-hidden shadow-xl shadow-[#1e88e5]/10 glow">
-        <div className="absolute inset-0 pattern"></div>
-        <h1 className="text-5xl md:text-6xl font-bold max-w-4xl z-10 bg-clip-text text-transparent bg-gradient-to-r from-white to-[#4facff]">
-          Transforming interviews with AI powered automation
-        </h1>
-        <p className="text-xl max-w-2xl text-light-100/80 z-10">
-          Experience the future of interviews with intelligent analysis and personalized feedback tailored to your needs
-        </p>
-        <div className="flex gap-4 z-10 mt-4">
-          <Button asChild className="bg-gradient-to-r from-[#4facff] to-[#1e88e5] hover:from-[#1e88e5] hover:to-[#1565c0] text-white rounded-full text-lg px-8 py-6">
-            <Link href="/interview">Start Interview</Link>
-          </Button>
-          <Button asChild className="bg-[#001e3d] text-[#4facff] hover:bg-[#00294f] hover:text-[#1e88e5] rounded-full text-lg px-8 py-6">
-            <Link href="#features">Explore Features</Link>
-          </Button>
-        </div>
-        
-        {/* AI-Enhanced Visual */}
-        <div className="relative w-full mt-8 flex justify-center z-10">
-          <div className="bg-[#001e3d]/50 backdrop-blur-md p-6 rounded-2xl border border-[#1e88e5]/20 flex items-center gap-5 max-w-xl">
-            <div className="flex-shrink-0">
-              <div className="bg-gradient-to-r from-[#4facff] to-[#1e88e5] rounded-full p-3">
-                <Image src="/ai-interviewer.svg" alt="AI Interviewer" width={60} height={60} className="size-15" />
+      <section className="relative px-6 lg:px-8 pt-20 pb-32">
+        <div className="mx-auto max-w-7xl">
+          {/* Announcement Badge */}
+          <div className="mb-8 flex justify-center">
+            <Badge variant="secondary" className="rounded-full px-4 py-2 text-sm font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300">
+              <Zap className="mr-1 h-4 w-4" />
+              AI-Powered Interview Practice
+            </Badge>
+          </div>
+
+          {/* Main Hero Content */}
+          <div className="text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl lg:text-7xl">
+              Master Your Next
+              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> Interview</span>
+            </h1>
+            
+            <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Get interview-ready with AI-powered practice sessions. Receive instant feedback, 
+              improve your skills, and land your dream job with confidence.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <Button asChild size="lg" className="rounded-full px-8 py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700">
+                <Link href="/interview">
+                  Start Interview Practice
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              
+              <Button variant="outline" size="lg" className="rounded-full px-8 py-4 text-lg font-semibold">
+                Watch Demo
+              </Button>
+            </div>
+
+            {/* Social Proof */}
+            <div className="mt-12 flex items-center justify-center gap-8 text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-2">
+                <div className="flex -space-x-2">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="h-8 w-8 rounded-full bg-gray-300 border-2 border-white dark:border-gray-800" />
+                  ))}
+                </div>
+                <span>500+ interviews completed</span>
+              </div>
+              
+              <div className="flex items-center gap-1">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+                <span className="ml-1">4.9/5 rating</span>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <p className="text-left text-[#4facff] font-semibold">AI Interviewer</p>
-              <p className="text-left text-light-100/80 text-sm">
-                Our AI interviewer adapts to your responses in real-time, providing a realistic interview experience
-              </p>
+          </div>
+        </div>
+
+        {/* Background Decoration */}
+        <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+          <div className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-blue-300 to-indigo-300 opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" />
+        </div>
+      </section>
+
+      {/* Your Interviews Section - Moved up as main feature */}
+      <section className="py-24 px-6 lg:px-8 bg-white/50 dark:bg-gray-800/50">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
+              Your Interview Journey
+            </h2>
+            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+              Track your progress and manage your interview sessions
+            </p>
+          </div>
+
+          {/* Your Interviews Section */}
+          <div className="mb-16">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+              <div className="flex items-center space-x-3">
+                <Users className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <h3 className="text-xl lg:text-2xl font-semibold text-gray-900 dark:text-white">Your Interviews</h3>
+                {hasPastInterviews && (
+                  <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                    {userInterviews.length} completed
+                  </Badge>
+                )}
+              </div>
+              <Button asChild className="bg-blue-600 hover:bg-blue-700 rounded-full w-full sm:w-auto">
+                <Link href="/interview">
+                  <Zap className="mr-2 h-4 w-4" />
+                  Take New Interview
+                </Link>
+              </Button>
             </div>
+            
+            {hasPastInterviews ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+                {userInterviews.slice(0, 6).map((interview, index) => (
+                  <Card key={interview.id || index} className="border-0 shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden">
+                    {/* Cover Image */}
+                    {interview.coverImage && (
+                      <div className="h-32 bg-gradient-to-r from-blue-500 to-indigo-600 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-black/20" />
+                        <div className="absolute bottom-2 left-4 right-4">
+                          <Badge variant="secondary" className="bg-white/90 text-gray-800 backdrop-blur-sm">
+                            {interview.type || 'Practice'}
+                          </Badge>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white truncate">
+                            {interview.role || 'Software Developer'}
+                          </CardTitle>
+                          <CardDescription className="flex items-center text-sm mt-1">
+                            <Clock className="mr-1 h-4 w-4 flex-shrink-0" />
+                            <span className="truncate">
+                              {interview.createdAt ? new Date(interview.createdAt).toLocaleDateString() : 'Recent'}
+                            </span>
+                          </CardDescription>
+                        </div>
+                        
+                        <div className="flex items-center text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                          <Calendar className="mr-1 h-3 w-3" />
+                          {interview.level || 'Mid-level'}
+                        </div>
+                      </div>
+                    </CardHeader>
+                    
+                    <CardContent className="pt-0 pb-4">
+                      <div className="space-y-4">
+                        {/* Status Badge */}
+                        <div className="flex items-center justify-between">
+                          <Badge 
+                            variant={interview.completed ? "default" : "secondary"} 
+                            className={interview.completed 
+                              ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" 
+                              : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+                            }
+                          >
+                            {interview.completed ? 'Completed' : 'In Progress'}
+                          </Badge>
+                          <span className="text-xs text-gray-500">
+                            {interview.questions?.length || 5} questions
+                          </span>
+                        </div>
+                        
+                        {/* Tech Stack */}
+                        {interview.techstack && interview.techstack.length > 0 && (
+                          <div className="space-y-2">
+                            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Technologies:</span>
+                            <div className="flex flex-wrap gap-1">
+                              {interview.techstack.slice(0, 4).map((tech, techIndex) => (
+                                <Badge 
+                                  key={techIndex} 
+                                  variant="outline" 
+                                  className="text-xs px-2 py-0.5 bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/30 dark:border-blue-700 dark:text-blue-300"
+                                >
+                                  {tech === 'you' ? 'General' : tech}
+                                </Badge>
+                              ))}
+                              {interview.techstack.length > 4 && (
+                                <Badge variant="outline" className="text-xs px-2 py-0.5">
+                                  +{interview.techstack.length - 4}
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Action Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="flex-1 h-8 text-xs"
+                            asChild
+                          >
+                            <Link href={`/interview/${interview.id}/feedback`}>
+                              <TrendingUp className="mr-1 h-3 w-3" />
+                              View Results
+                            </Link>
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="flex-1 h-8 text-xs"
+                            asChild
+                          >
+                            <Link href="/interview">
+                              Retry
+                            </Link>
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <Card className="border-0 shadow-lg bg-white dark:bg-gray-800 text-center py-12 lg:py-16">
+                <CardContent className="px-6 lg:px-8">
+                  <div className="text-gray-400 mb-6">
+                    <Target className="h-16 lg:h-20 w-16 lg:w-20 mx-auto" />
+                  </div>
+                  <CardTitle className="text-xl lg:text-2xl mb-4">Ready to start your interview journey?</CardTitle>
+                  <CardDescription className="text-base lg:text-lg mb-6 lg:mb-8 max-w-md mx-auto">
+                    Take your first AI-powered interview practice session and get personalized feedback to improve your skills.
+                  </CardDescription>
+                  <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 rounded-full px-6 lg:px-8 py-3 lg:py-4">
+                    <Link href="/interview">
+                      <Zap className="mr-2 h-4 lg:h-5 w-4 lg:w-5" />
+                      Start Your First Interview
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Quick Actions */}
+            {hasPastInterviews && (
+              <div className="text-center">
+                <Button variant="outline" asChild className="w-full sm:w-auto">
+                  <Link href="/interviews">
+                    View All Interviews ({userInterviews.length})
+                  </Link>
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {/* Stats Section */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+            {[
+              { 
+                label: "Interviews Completed", 
+                value: userInterviews?.length || 0,
+                icon: CheckCircle,
+                color: "blue"
+              },
+              { 
+                label: "Success Rate", 
+                value: userInterviews?.length ? "85%" : "0%",
+                icon: TrendingUp,
+                color: "green"
+              },
+              { 
+                label: "Skills Practiced", 
+                value: userInterviews?.length ? Math.min(userInterviews.length * 3, 25) : 0,
+                icon: Target,
+                color: "purple"
+              }
+            ].map((stat, index) => (
+              <Card key={index} className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 hover:shadow-xl transition-all duration-200 hover:scale-105">
+                <CardContent className="pt-6 pb-6 text-center">
+                  <stat.icon className={`h-8 w-8 mx-auto mb-3 ${
+                    stat.color === 'blue' ? 'text-blue-600' :
+                    stat.color === 'green' ? 'text-green-600' :
+                    'text-purple-600'
+                  }`} />
+                  <div className="text-2xl lg:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                    {stat.label}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
-      
-      {/* Services Section */}
-      <section id="features" className="flex flex-col gap-12">
-        <div className="text-center">
-          <h2 className="text-4xl font-bold mb-4">Innovative services for growth</h2>
-          <p className="text-xl text-light-100/80 max-w-2xl mx-auto">
-            Tailored solutions to streamline, innovate, and grow your interview skills
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Service 1 */}
-          <div className="card-border h-full">
-            <div className="card p-8 flex flex-col gap-6 min-h-80 border border-[#001e3d]/60">
-              <div className="size-16 bg-[#001e3d] rounded-xl flex-center">
-                <Image src="/ai-interview.svg" alt="AI Interview" width={32} height={32} />
-              </div>
-              <h3 className="text-xl font-bold">AI Interview Practice</h3>
-              <p className="text-light-100/80">
-                Practice with our AI interviewer that simulates real interview scenarios and adjusts to your skill level
-              </p>
-            </div>
+
+      {/* Features Section */}
+      <section className="py-24 px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
+              Everything you need to ace your interview
+            </h2>
+            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+              Comprehensive interview preparation tools powered by AI
+            </p>
           </div>
-          
-          {/* Service 2 */}
-          <div className="card-border h-full">
-            <div className="card p-8 flex flex-col gap-6 min-h-80 border border-[#001e3d]/60">
-              <div className="size-16 bg-[#001e3d] rounded-xl flex-center">
-                <Image src="/feedback.svg" alt="Feedback" width={32} height={32} />
-              </div>
-              <h3 className="text-xl font-bold">Detailed Feedback</h3>
-              <p className="text-light-100/80">
-                Receive comprehensive feedback and actionable insights to improve your interview performance
-              </p>
-            </div>
-          </div>
-          
-          {/* Service 3 */}
-          <div className="card-border h-full">
-            <div className="card p-8 flex flex-col gap-6 min-h-80 border border-[#001e3d]/60">
-              <div className="size-16 bg-[#001e3d] rounded-xl flex-center">
-                <Image src="/tech.svg" alt="Tech Stack" width={32} height={32} />
-              </div>
-              <h3 className="text-xl font-bold">Tech-Specific Training</h3>
-              <p className="text-light-100/80">
-                Customize your interview practice based on specific technologies and roles you&apos;re targeting
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Your Interviews Section */}
-      {hasPastInterviews && (
-        <section className="flex flex-col gap-8">
-          <div className="flex items-center justify-between">
-            <h2 className="text-3xl font-bold">Your Interviews</h2>
-            <Button asChild className="btn-primary">
-              <Link href="/interview">Take New Interview</Link>
-            </Button>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {userInterviews?.map((interview) => (
-              <InterviewCard
-                key={interview.id}
-                id={interview.id}
-                userId={user.id}
-                role={interview.role}
-                type={interview.type}
-                techstack={interview.techstack}
-                createdAt={interview.createdAt}
-                feedbackId={interview.feedbackId}
-                completed={interview.completed}
-              />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Target,
+                title: "AI-Powered Questions",
+                description: "Get personalized interview questions based on your role and industry"
+              },
+              {
+                icon: Users,
+                title: "Real-time Feedback",
+                description: "Instant analysis of your responses with actionable improvement tips"
+              },
+              {
+                icon: Zap,
+                title: "Practice Sessions",
+                description: "Unlimited practice with various interview formats and difficulty levels"
+              }
+            ].map((feature, index) => (
+              <Card key={index} className="border-0 shadow-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+                <CardHeader>
+                  <feature.icon className="h-12 w-12 text-blue-600 mb-4" />
+                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-gray-600 dark:text-gray-300">
+                    {feature.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
             ))}
           </div>
-        </section>
-      )}
-      
-      {/* Recent Interviews Section */}
-      {hasUpComingInterviews && (
-        <section className="flex flex-col gap-8">
-          <h2 className="text-3xl font-bold">Recent Interviews</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {allInterview?.map((interview) => (
-              <InterviewCard
-                key={interview.id}
-                id={interview.id}
-                userId={user.id}
-                role={interview.role}
-                type={interview.type}
-                techstack={interview.techstack}
-                createdAt={interview.createdAt}
-                feedbackId={interview.feedbackId}
-                completed={interview.completed}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-      
-      {/* CTA Section */}
-      <section className="bg-gradient-to-b from-[#001326] to-[#000205] rounded-3xl px-12 py-12 flex flex-col md:flex-row items-center justify-between gap-10 shadow-xl shadow-[#1e88e5]/10">
-        <div className="flex flex-col gap-6 max-w-xl">
-          <h2 className="text-3xl font-bold">Ready to ace your next interview?</h2>
-          <p className="text-light-100/80">
-            Start practicing now and get instant feedback to improve your interview skills.
-          </p>
         </div>
-        <Button asChild className="bg-gradient-to-r from-[#4facff] to-[#1e88e5] hover:from-[#1e88e5] hover:to-[#1565c0] text-white rounded-full text-lg px-8 py-6 whitespace-nowrap">
-          <Link href="/interview">Start Interview Now</Link>
-        </Button>
       </section>
     </div>
-  )
+  );
 }
 
-export default page
+export default Home;
