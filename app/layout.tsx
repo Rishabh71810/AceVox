@@ -1,16 +1,16 @@
 import { Toaster } from "sonner";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Mona_Sans } from "next/font/google";
 
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const monaSans = Mona_Sans({
+  variable: "--font-mona-sans",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "AceVox",
+  title: "PrepWise",
   description: "An AI-powered platform for preparing for mock interviews",
 };
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} antialiased pattern`}>
+      <body className={`${monaSans.className} antialiased pattern`}>
         {children}
 
         <Toaster />

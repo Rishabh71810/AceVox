@@ -95,66 +95,37 @@ export async function getLatestInterviews(
 ): Promise<Interview[] | null> {
   const { userId, limit = 20 } = params;
 
-  // Simplified query to avoid composite index requirement
   const interviews = await db
     .collection("interviews")
     .orderBy("createdAt", "desc")
-    .limit(limit * 2) // Get more to filter client-side
+    .limit(limit * 5) // Get more to account for filtering
     .get();
 
-  // Filter client-side to avoid complex database query
+  // Filter for finalized interviews, exclude current user, and limit results
   const filteredInterviews = interviews.docs
-    .map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }))
-    .filter((interview: any) => 
-      interview.finalized === true && interview.userId !== userId
-    )
+    .filter((doc) => {
+      const data = doc.data();
+      return data.finalized === true && data.userId !== userId;
+    })
     .slice(0, limit);
 
-  return filteredInterviews as Interview[];
+  return filteredInterviews.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as Interview[];
 }
 
 export async function getInterviewsByUserId(
   userId: string
 ): Promise<Interview[] | null> {
-  console.log('Starting to fetch interviews for user:', userId);
-  
-  if (!userId) {
-    console.log('No userId provided');
-    return [];
-  }
+  const interviews = await db
+    .collection("interviews")
+    .where("userId", "==", userId)
+    .orderBy("createdAt", "desc")
+    .get();
 
-  try {
-    console.log('Querying Firestore for interviews...');
-    const interviews = await db
-      .collection("interviews")
-      .where("userId", "==", userId)
-      .orderBy("createdAt", "desc")
-      .get();
-
-    console.log('Firestore query completed');
-    console.log('Number of interviews found:', interviews.docs.length);
-
-    if (interviews.docs.length === 0) {
-      console.log('No interviews found for user:', userId);
-      return [];
-    }
-
-    const mappedInterviews = interviews.docs.map((doc) => {
-      const data = doc.data();
-      console.log('Interview data:', { id: doc.id, ...data });
-      return {
-        id: doc.id,
-        ...data,
-      };
-    }) as Interview[];
-
-    console.log('Successfully mapped interviews:', mappedInterviews.length);
-    return mappedInterviews;
-  } catch (error) {
-    console.error('Error fetching interviews:', error);
-    return [];
-  }
+  return interviews.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as Interview[];
 }

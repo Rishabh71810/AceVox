@@ -23,8 +23,6 @@ interface Interview {
   userId: string;
   type: string;
   finalized: boolean;
-  completed?: boolean;
-  coverImage?: string;
 }
 
 interface CreateFeedbackParams {

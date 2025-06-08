@@ -1,119 +1,17 @@
-<svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Subtle grid background for tech feel -->
-  <pattern id="grid_pattern" width="10" height="10" patternUnits="userSpaceOnUse">
-    <path d="M0 0H10V10H0V0Z" fill="none" />
-    <circle cx="5" cy="5" r="0.5" fill="#1E88E5" fill-opacity="0.15" />
-  </pattern>
-
-  <!-- Background with blue gradient and subtle pattern -->
-  <rect width="100" height="100" rx="20" fill="url(#background_gradient)" />
-  <rect width="100" height="100" rx="20" fill="url(#pattern_gradient)" fill-opacity="0.05" />
-  
-  <!-- Inner shape for depth with frosted glass effect -->
-  <rect x="10" y="10" width="80" height="80" rx="15" fill="url(#inner_gradient)" fill-opacity="0.3" />
-  <rect x="10" y="10" width="80" height="80" rx="15" fill="url(#pattern_gradient)" fill-opacity="0.02" />
-  
-  <!-- Orbit rings representing global connections -->
-  <ellipse cx="50" cy="50" rx="40" ry="15" stroke="url(#orbit_gradient)" stroke-width="0.5" stroke-opacity="0.3" transform="rotate(30 50 50)" />
-  <ellipse cx="50" cy="50" rx="42" ry="20" stroke="url(#orbit_gradient)" stroke-width="0.5" stroke-opacity="0.3" transform="rotate(-20 50 50)" />
-  
-  <!-- Microphone representing interviews -->
-  <path d="M50 20C44.5 20 40 24.5 40 30V50C40 55.5 44.5 60 50 60C55.5 60 60 55.5 60 50V30C60 24.5 55.5 20 50 20Z" fill="url(#mic_gradient)" />
-  
-  <!-- Microphone details for added realism -->
-  <path d="M50 22C45.5 22 42 25.5 42 30V50C42 54.5 45.5 58 50 58C54.5 58 58 54.5 58 50V30C58 25.5 54.5 22 50 22Z" fill="#000A1A" fill-opacity="0.15" />
-  <path d="M47 30C47 28.9 47.9 28 49 28H51C52.1 28 53 28.9 53 30V32C53 33.1 52.1 34 51 34H49C47.9 34 47 33.1 47 32V30Z" fill="white" fill-opacity="0.1" />
-  
-  <!-- Microphone stand -->
-  <path d="M35 45V50C35 58.3 41.7 65 50 65C58.3 65 65 58.3 65 50V45" stroke="url(#accent_gradient)" stroke-width="4" stroke-linecap="round" />
-  
-  <!-- Base of microphone stand -->
-  <path d="M50 65V75" stroke="url(#accent_gradient)" stroke-width="4" stroke-linecap="round" />
-  <path d="M40 75H60" stroke="url(#accent_gradient)" stroke-width="4" stroke-linecap="round" />
-  
-  <!-- Sound wave circles representing communication -->
-  <circle cx="50" cy="40" r="5" fill="white" fill-opacity="0.9" />
-  <circle cx="50" cy="40" r="3" fill="#4FACFF" fill-opacity="0.5" />
-  
-  <!-- Dynamic sound waves emanating from microphone -->
-  <path d="M25 40C25 40 20 40 20 50C20 60 25 60 25 60" stroke="url(#wave_gradient)" stroke-width="2.5" stroke-linecap="round" />
-  <path d="M30 35C30 35 17 35 17 50C17 65 30 65 30 65" stroke="url(#wave_gradient)" stroke-width="2.5" stroke-linecap="round" />
-  
-  <path d="M75 40C75 40 80 40 80 50C80 60 75 60 75 60" stroke="url(#wave_gradient)" stroke-width="2.5" stroke-linecap="round" />
-  <path d="M70 35C70 35 83 35 83 50C83 65 70 65 70 65" stroke="url(#wave_gradient)" stroke-width="2.5" stroke-linecap="round" />
-  
-  <!-- Pulsating dots along the waves for dynamic feel -->
-  <circle cx="25" cy="40" r="1.5" fill="white" />
-  <circle cx="25" cy="60" r="1.5" fill="white" />
-  <circle cx="75" cy="40" r="1.5" fill="white" />
-  <circle cx="75" cy="60" r="1.5" fill="white" />
-  
-  <!-- Check mark in a circular background representing success -->
-  <circle cx="50" cy="78" r="15" fill="url(#success_gradient)" fill-opacity="0.8" />
-  <path d="M40 78L47 85L60 72" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-  
-  <!-- Document icon in the background suggesting interview preparation -->
-  <path d="M28 35L28 25C28 23.8954 28.8954 23 30 23L40 23" stroke="#4FACFF" stroke-width="1" stroke-opacity="0.2" />
-  <path d="M40 23L40 25C40 26.1046 38.8954 27 37.5 27L30 27C28.8954 27 28 26.1046 28 25" stroke="#4FACFF" stroke-width="1" stroke-opacity="0.2" />
-  <rect x="28" y="27" width="12" height="15" rx="1" stroke="#4FACFF" stroke-width="1" stroke-opacity="0.2" />
-  
-  <!-- Modern glow effects -->
-  <circle cx="50" cy="50" r="35" fill="url(#glow_gradient)" fill-opacity="0.15" />
-  <circle cx="50" cy="78" r="8" fill="url(#glow_gradient)" fill-opacity="0.2" />
-  
-  <defs>
-    <!-- Professional dark blue gradient -->
-    <linearGradient id="background_gradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#001A42" />
-      <stop offset="1" stop-color="#000a1a" />
-    </linearGradient>
-    
-    <!-- Subtle pattern gradient -->
-    <linearGradient id="pattern_gradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#1E88E5" stop-opacity="0.1" />
-      <stop offset="1" stop-color="#4FACFF" stop-opacity="0.05" />
-    </linearGradient>
-    
-    <!-- Inner gradient for depth -->
-    <linearGradient id="inner_gradient" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#1E88E5" />
-      <stop offset="1" stop-color="#0D47A1" />
-    </linearGradient>
-    
-    <!-- Microphone gradient -->
-    <linearGradient id="mic_gradient" x1="40" y1="20" x2="60" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#4FACFF" />
-      <stop offset="1" stop-color="#1E88E5" />
-    </linearGradient>
-    
-    <!-- Accent gradient -->
-    <linearGradient id="accent_gradient" x1="35" y1="45" x2="65" y2="75" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#64B5F6" />
-      <stop offset="1" stop-color="#1E88E5" />
-    </linearGradient>
-    
-    <!-- Wave gradient -->
-    <linearGradient id="wave_gradient" x1="15" y1="35" x2="85" y2="65" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#64B5F6" />
-      <stop offset="1" stop-color="#4FACFF" />
-    </linearGradient>
-    
-    <!-- Orbit gradient -->
-    <linearGradient id="orbit_gradient" x1="15" y1="50" x2="85" y2="50" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#4FACFF" />
-      <stop offset="1" stop-color="#1E88E5" />
-    </linearGradient>
-    
-    <!-- Success badge gradient -->
-    <linearGradient id="success_gradient" x1="35" y1="65" x2="65" y2="90" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#4FACFF" />
-      <stop offset="1" stop-color="#0D47A1" />
-    </linearGradient>
-    
-    <!-- Glow effect -->
-    <radialGradient id="glow_gradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(50 50) rotate(90) scale(35)">
-      <stop offset="0" stop-color="#4FACFF" />
-      <stop offset="1" stop-color="#1E88E5" stop-opacity="0" />
-    </radialGradient>
-  </defs>
+<svg width="39" height="34" viewBox="0 0 39 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.4565 4.74223H23.5946C23.9123 4.74223 24.2275 4.75549 24.5393 4.78145C25.2866 4.84325 26.0047 4.48205 26.3786 3.83189C27.0759 2.6196 26.2799 1.08759 24.8861 0.970196C24.46 0.934358 24.0294 0.916016 23.5943 0.916016H15.5121C7.0695 0.916016 -0.0583356 7.8229 0.000359945 16.2655C0.0291433 20.4312 1.73131 24.2001 4.46517 26.9339C7.22273 29.6915 11.0331 31.3959 15.2414 31.3959H23.5943C24.0294 31.3959 24.4603 31.3776 24.8861 31.3417C26.2799 31.2241 27.0756 29.6923 26.3786 28.4801C26.0047 27.8299 25.2866 27.4687 24.5393 27.5305C24.2275 27.5565 23.912 27.5697 23.5943 27.5697H15.2414C8.85379 27.5697 3.6756 22.2976 3.82968 15.8791C3.97924 9.64811 9.2243 4.74223 15.4565 4.74223Z" fill="url(#paint0_linear_7127_2420)"/>
+<path d="M4.40082 24.2363L1.64946 31.2677C1.20699 32.3981 2.38936 33.48 3.47636 32.9396L11.1881 29.1044L4.40082 24.2363Z" fill="#FFC19E"/>
+<path d="M29.875 9.89827C29.3967 9.41798 28.8583 8.99103 28.2753 8.6287C27.8968 8.39279 27.4499 8.32308 27.0153 8.43201C26.5793 8.5415 26.2153 8.81692 25.9901 9.20803C25.8487 9.45664 25.7739 9.73601 25.7739 10.0157C25.7739 10.5891 26.068 11.1159 26.561 11.4246C28.2075 12.4527 29.1904 14.222 29.1904 16.1572C29.1904 18.0917 28.207 19.8607 26.5598 20.889C25.8002 21.3653 25.5507 22.3397 25.9918 23.1082C26.285 23.615 26.831 23.9299 27.4166 23.9299C27.7196 23.9299 28.0159 23.8458 28.2724 23.6864C30.8982 22.0587 32.4655 19.2438 32.4655 16.1572C32.4661 13.7916 31.5458 11.5691 29.875 9.89827Z" fill="#DDDFFF"/>
+<path d="M24.7344 18.4356C23.4753 18.4356 22.4546 17.4149 22.4546 16.1558C22.4546 14.8967 23.4753 13.876 24.7344 13.876C25.9935 13.876 27.0142 14.8967 27.0142 16.1558C27.0142 17.4149 25.9935 18.4356 24.7344 18.4356Z" fill="white"/>
+<path d="M38.833 16.1581C38.833 21.6346 35.947 26.4338 31.6134 29.1205C31.3021 29.3133 30.9584 29.403 30.6184 29.403C29.9538 29.403 29.3054 29.0562 28.9493 28.4399C28.4292 27.5346 28.7407 26.3951 29.6265 25.8398C32.8559 23.8238 35.0067 20.238 35.0067 16.1581C35.0067 12.0782 32.8559 8.48933 29.6265 6.47336C29.0328 6.10087 28.6956 5.46538 28.6956 4.81381C28.6956 4.49606 28.7791 4.17182 28.9493 3.87326C29.4885 2.93583 30.6988 2.62457 31.6168 3.19601C32.6183 3.8188 33.5427 4.5508 34.371 5.38213C37.1282 8.13941 38.833 11.9498 38.833 16.1581Z" fill="url(#paint1_linear_7127_2420)"/>
+<defs>
+<linearGradient id="paint0_linear_7127_2420" x1="25.7203" y1="11.3378" x2="8.2079" y2="27.7861" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#FFC19E"/>
+</linearGradient>
+<linearGradient id="paint1_linear_7127_2420" x1="39.1873" y1="29.8598" x2="30.211" y2="30.4563" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D5D5FF"/>
+<stop offset="0.991615" stop-color="#FFDAC8"/>
+</linearGradient>
+</defs>
 </svg>

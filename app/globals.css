@@ -186,7 +186,7 @@
   }
 
   .card-border {
-    @apply bg-gradient-to-br from-blue-100/20 to-purple-100/20 border border-blue-200/30 dark:from-blue-900/20 dark:to-purple-900/20 dark:border-blue-700/30 p-0.5 rounded-2xl w-fit;
+    @apply border-gradient p-0.5 rounded-2xl w-fit;
   }
 
   .card {
@@ -229,7 +229,7 @@
     }
 
     .card-border {
-      @apply bg-gradient-to-br from-blue-100/20 to-purple-100/20 border border-blue-200/30 dark:from-blue-900/20 dark:to-purple-900/20 dark:border-blue-700/30 p-0.5 rounded-2xl flex-1 sm:basis-1/2 w-full h-[400px] max-md:hidden;
+      @apply border-gradient p-0.5 rounded-2xl flex-1 sm:basis-1/2 w-full h-[400px] max-md:hidden;
     }
 
     .card-content {
@@ -238,7 +238,7 @@
   }
 
   .transcript-border {
-    @apply bg-gradient-to-br from-blue-100/20 to-purple-100/20 border border-blue-200/30 dark:from-blue-900/20 dark:to-purple-900/20 dark:border-blue-700/30 p-0.5 rounded-2xl w-full;
+    @apply border-gradient p-0.5 rounded-2xl w-full;
 
     .transcript {
       @apply dark-gradient rounded-2xl  min-h-12 px-5 py-3 flex items-center justify-center;
@@ -292,23 +292,14 @@
       @apply text-sm font-semibold capitalize;
     }
   }
-
-  /* Animation delay utilities */
-  .animation-delay-75 {
-    animation-delay: 75ms;
-  }
-
-  .animation-delay-150 {
-    animation-delay: 150ms;
-  }
-
-  .animation-delay-300 {
-    animation-delay: 300ms;
-  }
 }
 
 @utility dark-gradient {
   @apply bg-gradient-to-b from-[#1A1C20] to-[#08090D];
+}
+
+@utility border-gradient {
+  @apply bg-gradient-to-b from-[#4B4D4F] to-[#4B4D4F33];
 }
 
 @utility pattern {
