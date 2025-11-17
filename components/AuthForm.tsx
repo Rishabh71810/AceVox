@@ -32,6 +32,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const router = useRouter();
 
   const formSchema = authFormSchema(type);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
